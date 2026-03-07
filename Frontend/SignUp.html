@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | SheLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="logo">SheLearn</div>
+            <h4>Create Your Account</h4>
+            <p class="subtitle">Join a safe space for female students to learn and grow</p>
+
+            <form>
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="region">Which part of Africa are you from?</label>
+                    <div class="custom-select" id="region-dropdown">
+                        <div class="select-selected">Select your region</div>
+                        <div class="select-items select-hide">
+                            <div data-value="central">Central Africa</div>
+                            <div data-value="east">East Africa</div>
+                            <div data-value="north">North Africa</div>
+                            <div data-value="southern">Southern Africa</div>
+                            <div data-value="west">West Africa</div>
+                        </div>
+                    </div>
+                    <!-- Hidden input to hold the value for form submission -->
+                    <input type="hidden" name="region" id="region-input" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="country">Country Of Origin</label>
+                    <input type="text" id="country" placeholder="Burundi" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Student Email</label>
+                    <input type="email" id="email" placeholder="name@gmail.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="verify" required>
+                    <label for="verify">I am a female student and agree to the community guidelines.</label>
+                </div>
+
+                <button type="submit" class="btn-primary">Sign Up</button>
+            </form>
+
+            <p class="footer-text">
+                Already have an account? <a href="login.html">Sign In</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

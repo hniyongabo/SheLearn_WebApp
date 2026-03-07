@@ -1,0 +1,197 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FBE9FB;
+    min-height: 100vh;
+    display: flex;
+    padding: 20px 0;
+}
+
+.signup-container {
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+}
+
+.signup-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    margin: auto;
+    border-radius: 24px;
+    border: 2px solid #FBE9FB;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.logo {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #CB87E6;
+    font-weight: 700;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #777;
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Form Styles */
+.input-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+/* Apply the same style to all inputs and the dropdown */
+input[type="text"],
+input[type="email"],
+/* Custom Select container */
+.custom-select {
+    position: relative;
+    width: 100%;
+}
+
+/* Style the custom select input */
+.select-selected {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    font-size: 15px;
+    background-color: #fff;
+    transition: 0.3s;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23CB87E6'><path d='M7 10l5-5H2z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    color: #555;
+}
+
+/* Style for active custom select */
+.select-selected.select-active {
+    border-color: #E6C4F3;
+    box-shadow: 0 0 0 3px rgba(230, 196, 243, 0.4);
+    outline: none;
+}
+
+/* Style items (options) */
+.select-items {
+    position: absolute;
+    background-color: #fff;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+    overflow: hidden;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Hide items when closed */
+.select-hide {
+    display: none;
+}
+
+/* Style individual options */
+.select-items div {
+    color: #333;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.select-items div:last-child {
+    border-bottom: none;
+}
+
+/* The requested hover state for items */
+.select-items div:hover,
+.same-as-selected {
+    background-color: #FBE9FB;
+}
+
+/* Interactive border color using #CB87E6 */
+input:focus {
+    border-color: #CB87E6;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.checkbox-group label {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+/* Primary Button using #CB87E6 */
+.btn-primary {
+    width: 100%;
+    background-color: #CB87E6;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #b56fd1;
+    /* Slightly darker shade for hover effect */
+    transform: translateY(-2px);
+}
+
+.footer-text {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Link color using #CB87E6 */
+.footer-text a {
+    color: #CB87E6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-text a:hover {
+    text-decoration: underline;
+}
