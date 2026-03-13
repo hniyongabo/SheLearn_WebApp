@@ -70,6 +70,17 @@ label {
 /* Apply the same style to all inputs and the dropdown */
 input[type="text"],
 input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    outline: none;
+    font-size: 15px;
+    background-color: #fff;
+    transition: 0.3s;
+}
+
 /* Custom Select container */
 .custom-select {
     position: relative;
@@ -159,24 +170,42 @@ input:focus {
     cursor: pointer;
 }
 
-/* Primary Button using #CB87E6 */
-.btn-primary {
-    width: 100%;
-    background-color: #CB87E6;
-    color: white;
-    padding: 14px;
-    border: none;
+/* =========================================================
+   Button System
+   All buttons share base styles for consistency
+   ========================================================= */
+.btn-primary,
+.btn-primary-small,
+.btn-secondary {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 12px;
-    font-size: 16px;
     font-weight: 600;
+    text-decoration: none;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
+    transition: all 0.3s ease;
+    border: none;
 }
 
-.btn-primary:hover {
+/* Primary Color Base */
+.btn-primary,
+.btn-primary-small {
+    background-color: #CB87E6;
+    color: white;
+}
+
+.btn-primary:hover,
+.btn-primary-small:hover {
     background-color: #b56fd1;
-    /* Slightly darker shade for hover effect */
     transform: translateY(-2px);
+}
+
+/* Block Level Primary Button (For Forms) */
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
 }
 
 .footer-text {
@@ -194,4 +223,278 @@ input:focus {
 
 .footer-text a:hover {
     text-decoration: underline;
+}
+
+/* =========================================================
+   Landing Page specific Styles
+   Documenting CSS used:
+   - Flexbox: for navigation and hero block centering
+   - CSS Gradients: subtle radial/linear background matching pastels
+   - Hover Transitions: smoothing buttons and links
+   - Semantic color accents: deep plum #4A3B52 for contrast 
+   - Box-Shadows: for small elevated pills/buttons
+   ========================================================= */
+
+/* Landing Page Background overriding the Sign Up background */
+.landing-body {
+    background: linear-gradient(135deg, #FFF6FA 0%, #FBE9FB 100%);
+    display: block;
+    /* Overrides the flex centering on body from form pages */
+    padding: 0;
+}
+
+.landing-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation Bar */
+.landing-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 40px;
+}
+
+.logo-link {
+    text-decoration: none;
+    margin-bottom: 0;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-link {
+    color: #4A3B52;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #CB87E6;
+}
+
+/* Small Header Button */
+.btn-primary-small {
+    padding: 10px 20px;
+}
+
+/* Hero Section */
+.hero-section {
+    flex: 1;
+    /* Pushes footer down if we add one, fills space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.hero-content {
+    max-width: 700px;
+}
+
+.badge {
+    background-color: #ffffff;
+    color: #CB87E6;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(203, 135, 230, 0.15);
+    display: inline-block;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #2D3748;
+    /* Darker harmonised contrast color */
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Button Group Flexbox */
+.btn-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hero Section large buttons */
+.btn-group .btn-primary,
+.btn-secondary {
+    width: auto;
+    padding: 16px 32px;
+    font-size: 16px;
+}
+
+/* Secondary Action Button styling overrides */
+.btn-secondary {
+    background-color: transparent;
+    color: #4A3B52;
+    border: 2px solid #E6C4F3;
+}
+
+/* Secondary hover */
+.btn-secondary:hover {
+    border-color: #CB87E6;
+    color: #CB87E6;
+    background-color: rgba(230, 196, 243, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments for phones */
+@media (max-width: 600px) {
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-group a {
+        width: 100%;
+    }
+
+    .landing-nav {
+        padding: 20px;
+    }
+
+    .hero-title {
+        font-size: 36px;
+    }
+}
+
+/* =========================================================
+   About Section & Interactive Cards
+   ========================================================= */
+.about-section {
+    padding: 20px 20px 80px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.cards-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Base Card structure styling matching the sign-up card */
+.about-card {
+    background-color: #ffffff;
+    border: 2px solid #FBE9FB;
+    border-radius: 24px;
+    padding: 40px;
+    flex: 1;
+    min-width: 300px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* Ensuring stable height even when content is invisible */
+    min-height: 350px;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    border-color: #CB87E6;
+}
+
+.card-title {
+    font-size: 24px;
+    color: #CB87E6;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* Content hiding and text delays */
+.card-content {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    /* Faster exit transition when mouse leaves */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    flex: 1;
+}
+
+/* User specifically requested delayed text appearing 1s AFTER hover */
+.about-card:hover .card-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    /* 1.0s delay applied specifically on the entry hover */
+    transition: opacity 0.2s ease 0.5s, transform 0.2s ease 0.5s, visibility 0s 1s;
+}
+
+.card-text {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.card-list {
+    list-style-type: none;
+    margin-top: 15px;
+}
+
+.card-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.card-list li::before {
+    content: "•";
+    color: #CB87E6;
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: -3px;
+}
+
+/* Hint text acting as a placeholder while content is hidden */
+.hover-prompt {
+    position: absolute;
+    top: 55%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    font-size: 15px;
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.about-card:hover .hover-prompt {
+    /* Instantly hide the prompt on hover while waiting for the delay */
+    opacity: 0;
 }

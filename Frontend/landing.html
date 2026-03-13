@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Documenting HTML used: 
+         - Open Graph/Viewport meta tags for responsive design 
+         - Semantic tags (header, nav, main, section) for accessibility 
+         - Google Fonts for the typography (Inter)
+    -->
+    <title>Welcome | SheLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="landing-body">
+
+    <!-- Hero Wrapper: acts as the main viewport container replacing the signup container -->
+    <div class="landing-wrapper">
+
+        <!-- Navbar for the Logo and secondary actions like Logging In -->
+        <header class="landing-nav">
+            <a href="landing.html" class="logo logo-link">SheLearn</a>
+            <div class="nav-links">
+                <a href="login.html" class="nav-link">Log In</a>
+                <a href="SignUp.html" class="btn-primary-small">Join Now</a>
+            </div>
+        </header>
+
+        <!-- Main Hero Section: clean, encouraging text focusing on the user -->
+        <main class="hero-section">
+            <div class="hero-content">
+                <span class="badge">Tech Made Accessible</span>
+                <h1 class="hero-title">You belong in tech. Let's start building your future today.</h1>
+                <p class="hero-subtitle">
+                    SheLearn is a welcoming, encouraging space designed specifically for women.
+                    Whether you are writing your very first line of code or advancing your career,
+                    we provide the community and tools you need. No prior experience required—just bring your ambition.
+                </p>
+                <div class="btn-group">
+                    <!-- Primary Call-to-Action -->
+                    <a href="SignUp.html" class="btn-primary">Get Started for Free</a>
+                    <a href="#about" class="btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </main>
+
+        <!-- About Section: Mission & What We Do with interactive delayed reveals -->
+        <section id="about" class="about-section">
+            <div class="cards-container">
+                <!-- Mission Card -->
+                <div class="about-card">
+                    <h3 class="card-title">Our Mission</h3>
+                    <div class="card-content">
+                        <p class="card-text">
+                            To bridge the gap between education and the job market for African women in tech. Despite
+                            Africa leading with 47% of women STEM graduates, only a small fraction secure tech roles. We
+                            are here to change that. SheLearn provides a targeted, skill-based digital space that enable
+                            you to thrive in the tech workforce.
+                        </p>
+                    </div>
+                    <div class="hover-prompt"></div>
+                </div>
+
+                <!-- What We Do Card -->
+                <div class="about-card">
+                    <h3 class="card-title">What We Do</h3>
+                    <div class="card-content">
+                        <p class="card-text">
+                            We provide the "ladder" for women to reach the heights of the tech industry through a
+                            community-driven approach:
+                        </p>
+                        <ul class="card-list">
+                            <li>A class with a professional in tech</li>
+                            <li>Materials to keep you engaged</li>
+                            <li>Professional community</li>
+                        </ul>
+                    </div>
+                    <div class="hover-prompt"></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+
+</html>
