@@ -7,7 +7,8 @@
     <title>Admin Dashboard | SheLearn</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="dashboard-page">
@@ -19,26 +20,74 @@
                 <span class="stat-number">85</span>
                 <p>Total Students</p>
             </div>
-            <div class="stat-box stat-box-alt">
+            <div class="stat-box" style="background: #4A3B52;">
                 <span class="stat-number">4</span>
                 <p>Facilitators</p>
             </div>
-            <div class="stat-box stat-box-outline">
+            <div class="stat-box" style="background: #ffffff; color: #333; border: 2px solid #FBE9FB;">
                 <span class="stat-number">92%</span>
                 <p>Platform Progress</p>
             </div>
         </section>
 
+        <!-- Analytics Chart Panel -->
+        <div class="panel" style="margin-bottom: 30px;">
+            <h4 class="panel-title">Analytics: User Time on Platform</h4>
+            <div class="chart-wrapper" style="position: relative; height: 300px; width: 100%;">
+                <canvas id="userTimeChart"></canvas>
+            </div>
+        </div>
+
+        <!-- User Management Panel -->
         <div class="panel">
-            <h4 class="panel-title">User Management</h4>
-            <div class="panel-actions">
-                <button class="btn-primary-small">Add User</button>
-                <button class="btn-primary-small">Update User</button>
-                <button class="btn-primary-small">Delete User</button>
-                <button class="btn-secondary btn-secondary-compact">Generate Report</button>
+            <div class="page-header" style="margin-bottom: 20px;">
+                <h4 class="panel-title" style="margin-bottom: 0;">User Management</h4>
+                <div class="panel-actions">
+                    <button class="btn-primary-small">+ Add User</button>
+                    <button class="btn-secondary btn-secondary-compact">Generate Report</button>
+                </div>
+            </div>
+
+            <div class="table-container" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mugisha Anne</td>
+                            <td>annemu@gmail.com</td>
+                            <td>Student</td>
+                            <td><span class="badge-active">Active</span></td>
+                            <td class="table-actions">
+                                <button class="btn-action btn-update">Update</button>
+                                <button class="btn-action btn-delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kankindi Tianne</td>
+                            <td>kankindit@gmail.com</td>
+                            <td>Facilitator</td>
+                            <td><span class="badge-active">Active</span></td>
+                            <td class="table-actions">
+                                <button class="btn-action btn-update">Update</button>
+                                <button class="btn-action btn-delete">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+
+    <!-- Main scripts -->
+    <script src="script.js"></script>
 </body>
 
 </html>

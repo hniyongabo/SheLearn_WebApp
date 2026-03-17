@@ -15,11 +15,16 @@
     --muted-2: #777;
 
     /* Brand + accents */
-    --brand: #D9A6F0;          /* sign-up / primary (lighter purple) */
-    --brand-2: #F0D8FA;        /* borders / subtle */
-    --accent-teal: #35B7A2;    /* secondary / success */
-    --accent-blue: #4B7BFF;    /* info / navigation highlight */
-    --accent-peach: #F5A6C6;   /* warm accent */
+    --brand: #D9A6F0;
+    /* sign-up / primary (lighter purple) */
+    --brand-2: #F0D8FA;
+    /* borders / subtle */
+    --accent-teal: #35B7A2;
+    /* secondary / success */
+    --accent-blue: #4B7BFF;
+    /* info / navigation highlight */
+    --accent-peach: #F5A6C6;
+    /* warm accent */
     --danger: #ff4d4d;
 
     --shadow-soft: 0 15px 35px rgba(0, 0, 0, 0.05);
@@ -88,13 +93,13 @@ body {
 }
 
 .stat-box-alt {
-    background: linear-gradient(135deg, #4A3B52, var(--brand));
+    background: #4A3B52;
 }
 
 .stat-box-outline {
-    background: var(--surface);
-    color: var(--ink);
-    border: 2px solid var(--bg-lavender);
+    background: #ffffff;
+    color: #333;
+    border: 2px solid #FBE9FB;
 }
 
 .signup-container {
@@ -473,12 +478,14 @@ input:focus {
     padding: 16px 32px;
     font-size: 16px;
 }
+
 /* Small utilities */
 .divider {
     height: 1px;
     background-color: white;
     margin: 20px 0;
 }
+
 /* Responsive adjustments for phones */
 @media (max-width: 600px) {
     .btn-group {
@@ -736,7 +743,7 @@ td {
 }
 
 .stat-box {
-    background: linear-gradient(135deg, var(--brand), var(--accent-blue));
+    background: rgba(7, 177, 149, 0.15);
     color: white;
     border-radius: 18px;
     padding: 25px 30px;
@@ -781,11 +788,60 @@ td {
     box-shadow: 0 12px 28px rgba(203, 135, 230, 0.25);
 }
 
-/* =========================================================
+/* 
    Mobile and Tablet Responsiveness (max-width: 768px)
    Covers: student dashboard, admin stats, facilitator header
+    */
+/* =========================================================
+   Table Actions & Status Badges
    ========================================================= */
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-action {
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-update {
+    background-color: rgba(53, 183, 162, 0.15);
+    color: var(--accent-teal);
+}
+
+.btn-update:hover {
+    background-color: var(--accent-teal);
+    color: white;
+}
+
+.btn-delete {
+    background-color: rgba(255, 77, 77, 0.15);
+    color: var(--danger);
+}
+
+.btn-delete:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+.badge-active {
+    background: rgba(53, 183, 162, 0.15);
+    color: var(--accent-teal);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
 @media (max-width: 768px) {
+
     /* Dashboard sidebar stacks on top */
     .dashboard-wrapper {
         flex-direction: column;

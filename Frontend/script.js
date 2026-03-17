@@ -195,4 +195,89 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    /* ---------------------------------------------------------
+       5. PLATFORM ANALYTICS CHART (AREA LINE CHART)
+       Initializes the Chart.js area chart on the admin dashboard
+    --------------------------------------------------------- */
+    const chartCanvas = document.getElementById('userTimeChart');
+    if (chartCanvas) {
+        const ctx = chartCanvas.getContext('2d');
+        
+        // Gradient for the area fill
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(217, 166, 240, 0.5)'); // var(--brand) with opacity
+        gradient.addColorStop(1, 'rgba(217, 166, 240, 0.0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Avg. User Time (Mins)',
+                    data: [45, 52, 38, 65, 59, 80, 72],
+                    backgroundColor: gradient,
+                    borderColor: '#D9A6F0', // var(--brand)
+                    borderWidth: 3,
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#D9A6F0',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: true,
+                    tension: 0.4 // Creates the smooth curve
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false // Hide legend for cleaner look
+                    },
+                    tooltip: {
+                        backgroundColor: '#2D3748',
+                        padding: 12,
+                        titleFont: { family: 'Inter', size: 13 },
+                        bodyFont: { family: 'Inter', size: 14, weight: 'bold' },
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' Mins';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: { family: 'Inter', size: 12 },
+                            color: '#777'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: '#f0f0f0',
+                            borderDash: [5, 5],
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: { family: 'Inter', size: 12 },
+                            color: '#777',
+                            stepSize: 20
+                        },
+                        beginAtZero: true
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+            }
+        });
+    }
+
 });
