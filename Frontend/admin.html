@@ -10,30 +10,32 @@
 
 </head>
 
-<body style="background-color: #fafafa; display: block;">
-    <div style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-        <div class="logo" style="margin-bottom: 30px;">SheLearn Admin</div>
+<body class="dashboard-page">
+    <div class="page-container page-container-tight">
+        <div class="logo page-logo">SheLearn Admin</div>
 
         <section class="stats-container">
             <div class="stat-box">
                 <span class="stat-number">85</span>
                 <p>Total Students</p>
             </div>
-            <div class="stat-box" style="background: #4A3B52;">
+            <div class="stat-box stat-box-alt">
                 <span class="stat-number">4</span>
                 <p>Facilitators</p>
             </div>
-            <div class="stat-box" style="background: #ffffff; color: #333; border: 2px solid #FBE9FB;">
+            <div class="stat-box stat-box-outline">
                 <span class="stat-number">92%</span>
                 <p>Platform Progress</p>
             </div>
         </section>
 
-        <div style="background: white; padding: 30px; border-radius: 20px; border: 1px solid #FBE9FB;">
-            <h4 style="margin-bottom: 20px;">User Management</h4>
-            <div style="display: flex; gap: 10px;">
+        <div class="panel">
+            <h4 class="panel-title">User Management</h4>
+            <div class="panel-actions">
                 <button class="btn-primary-small">Add User</button>
-                <button class="btn-secondary" style="padding: 10px 20px;">Generate Report</button>
+                <button class="btn-primary-small">Update User</button>
+                <button class="btn-primary-small">Delete User</button>
+                <button class="btn-secondary btn-secondary-compact">Generate Report</button>
             </div>
         </div>
     </div>

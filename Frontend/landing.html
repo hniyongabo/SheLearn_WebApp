@@ -11,6 +11,7 @@
     -->
     <title>Welcome | SheLearn</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="landing-sections.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap"
         rel="stylesheet">
@@ -24,62 +25,114 @@
         <!-- Navbar for the Logo and secondary actions like Logging In -->
         <header class="landing-nav">
             <a href="landing.html" class="logo logo-link">SheLearn</a>
+
+            <nav class="landing-menu" aria-label="Landing page sections">
+                <a class="landing-menu-link" href="#home">Home</a>
+                <a class="landing-menu-link" href="#mission">Our Mission</a>
+                <a class="landing-menu-link" href="#what-we-do">What We Do</a>
+                <a class="landing-menu-link" href="#courses">Available Courses</a>
+                <a class="landing-menu-link" href="#how-it-works">How it works</a>
+                <a class="landing-menu-link" href="#contact">Contact</a>
+            </nav>
+
             <div class="nav-links">
                 <a href="login.html" class="nav-link">Log In</a>
                 <a href="SignUp.html" class="btn-primary-small">Join Now</a>
             </div>
         </header>
 
-        <!-- Main Hero Section: clean, encouraging text focusing on the user -->
-        <main class="hero-section">
+        <!-- Main Hero Section: clean, encouraging text focused on what SheLearn is about, keeping it direct to the user -->
+        <main id="home" class="hero-section">
             <div class="hero-content">
                 <span class="badge">Tech Made Accessible</span>
                 <h1 class="hero-title">You belong in tech. Let's start building your future today.</h1>
                 <p class="hero-subtitle">
                     SheLearn is a welcoming, encouraging space designed specifically for women.
                     Whether you are writing your very first line of code or advancing your career,
-                    we provide the community and tools you need. No prior experience required—just bring your ambition.
+                    we provide the community and tools you need. 
+                    No prior experience required—just bring your ambition.
                 </p>
                 <div class="btn-group">
                     <!-- Primary Call-to-Action -->
                     <a href="SignUp.html" class="btn-primary">Get Started for Free</a>
-                    <a href="#about" class="btn-secondary">Learn More</a>
+                    <a href="#mission" class="btn-secondary">Learn More</a>
                 </div>
             </div>
         </main>
 
-        <!-- About Section: Mission & What We Do with interactive delayed reveals -->
-        <section id="about" class="about-section">
-            <div class="cards-container">
-                <!-- Mission Card -->
-                <div class="about-card">
-                    <h3 class="card-title">Our Mission</h3>
-                    <div class="card-content">
-                        <p class="card-text">
-                            To bridge the gap between education and the job market for African women in tech. Despite
-                            Africa leading with 47% of women STEM graduates, only a small fraction secure tech roles. We
-                            are here to change that. SheLearn provides a targeted, skill-based digital space that enable
-                            you to thrive in the tech workforce.
-                        </p>
-                    </div>
-                    <div class="hover-prompt"></div>
-                </div>
+        <!-- Mission -->
+        <section id="mission" class="image-section image-section-mission">
+            <div class="image-section-inner">
+                <h2 class="image-section-title">Our Mission</h2>
+                <p class="image-section-text">
+                    To bridge the gap between education and the job market for African women in tech. Despite Africa
+                    leading with 47% of women STEM graduates, only a small fraction secure tech roles. SheLearn is here
+                    to change that—by providing structured, skill-based learning with community support.
+                </p>
+            </div>
+        </section>
+        <div class="divider">
+           
+        </div>
 
-                <!-- What We Do Card -->
-                <div class="about-card">
-                    <h3 class="card-title">What We Do</h3>
-                    <div class="card-content">
-                        <p class="card-text">
-                            We provide the "ladder" for women to reach the heights of the tech industry through a
-                            community-driven approach:
-                        </p>
-                        <ul class="card-list">
-                            <li>A class with a professional in tech</li>
-                            <li>Materials to keep you engaged</li>
-                            <li>Professional community</li>
-                        </ul>
+    <!-- What we do -->
+        <section id="what-we-do" class="image-section image-section-whatwedo">
+            <div class="image-section-inner">
+                <h2 class="image-section-title">What We Do</h2>
+                <p class="image-section-text">We provide the “ladder” for women to reach the heights of the tech industry through a community-driven approach:</p>
+                <ul class="image-section-list">
+                    <li>Live learning with professionals in tech</li>
+                    <li>Practical materials to keep you engaged</li>
+                    <li>A supportive, career-minded community</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Courses -->
+        <section id="courses" class="landing-section">
+            <div class="section-inner">
+                <h2 class="section-title">Available courses</h2>
+                <p class="section-subtitle">Pick a path and start building!</p>
+
+                <div class="course-grid">
+                    <a class="course-tile" href="SignUp.html" aria-label="Software Development course (sign up)">
+                        <div class="course-tile-media course-media-dev" role="img" aria-label="Placeholder image of young girls in tech"></div>
+                        <div class="course-tile-title">Software Development</div>
+                    </a>
+
+                    <a class="course-tile" href="SignUp.html" aria-label="Data Science & Analysis course (sign up)">
+                        <div class="course-tile-media course-media-data" role="img" aria-label="Placeholder image of young girls in tech"></div>
+                        <div class="course-tile-title">Data Science &amp; Analysis</div>
+                    </a>
+
+                    <a class="course-tile" href="SignUp.html" aria-label="Product & UX course (sign up)">
+                        <div class="course-tile-media course-media-ux" role="img" aria-label="Placeholder image of young girls in tech"></div>
+                        <div class="course-tile-title">Product &amp; UX</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Contact -->
+        <section id="contact" class="landing-section landing-section-muted">
+            <div class="section-inner">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-subtitle">Questions, partnerships, or mentorship? We’d love to hear from you.</p>
+
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p><a class="contact-link" href="mailto:hello@shelearn.org">hello@shelearn.org</a></p>
                     </div>
-                    <div class="hover-prompt"></div>
+                    <div class="contact-item">
+                        <h3>Community</h3>
+                        <p>Join discussions, ask questions, and celebrate wins together.</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Get started</h3>
+                        <p><a class="contact-link" href="SignUp.html">Create your account</a> in under a minute.</p>
+                    </div>
                 </div>
             </div>
         </section>

@@ -13,56 +13,65 @@ document.addEventListener("DOMContentLoaded", function () {
        1. CUSTOM SELECT DROPDOWN
        Only runs if the custom select elements exist on the page
     --------------------------------------------------------- */
-    const selected = document.querySelector(".select-selected");
-    const items = document.querySelector(".select-items");
-    const hiddenInput = document.getElementById("region-input");
+    const customSelects = document.querySelectorAll(".custom-select");
 
-    if (selected && items) {
-        const options = items.querySelectorAll("div");
-
-        function closeDropdown() {
-            items.classList.add("select-hide");
-            selected.classList.remove("select-active");
+    if (customSelects.length > 0) {
+        function closeAllDropdowns(exceptItems = null, exceptSelected = null) {
+            customSelects.forEach(selectEl => {
+                const itemsEl = selectEl.querySelector(".select-items");
+                const selectedEl = selectEl.querySelector(".select-selected");
+                if (!itemsEl || !selectedEl) return;
+                if (itemsEl !== exceptItems) itemsEl.classList.add("select-hide");
+                if (selectedEl !== exceptSelected) selectedEl.classList.remove("select-active");
+            });
         }
 
-        // Toggle dropdown open/close
-        selected.addEventListener("click", function (e) {
-            e.stopPropagation();
-            items.classList.toggle("select-hide");
-            selected.classList.toggle("select-active");
-        });
+        customSelects.forEach(selectEl => {
+            const selected = selectEl.querySelector(".select-selected");
+            const items = selectEl.querySelector(".select-items");
+            const hiddenInput = (selectEl.closest(".input-group") || selectEl.parentElement)?.querySelector("input[type='hidden']");
 
-        // Handle option selection
-        options.forEach(option => {
-            option.addEventListener("click", function (e) {
+            if (!selected || !items) return;
+
+            const options = items.querySelectorAll("div");
+
+            function closeDropdown() {
+                items.classList.add("select-hide");
+                selected.classList.remove("select-active");
+            }
+
+            selected.addEventListener("click", function (e) {
                 e.stopPropagation();
-
-                // Update visible text
-                selected.textContent = this.textContent;
-
-                // Update hidden input for form submission
-                if (hiddenInput) {
-                    hiddenInput.value = this.getAttribute("data-value") || this.textContent;
+                const willOpen = items.classList.contains("select-hide");
+                closeAllDropdowns(items, selected);
+                if (willOpen) {
+                    items.classList.remove("select-hide");
+                    selected.classList.add("select-active");
+                } else {
+                    closeDropdown();
                 }
+            });
 
-                // Highlight the selected option
-                items.querySelectorAll(".same-as-selected").forEach(el => {
-                    el.classList.remove("same-as-selected");
+            options.forEach(option => {
+                option.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    selected.textContent = this.textContent;
+
+                    if (hiddenInput) {
+                        hiddenInput.value = this.getAttribute("data-value") || this.textContent;
+                    }
+
+                    items.querySelectorAll(".same-as-selected").forEach(el => el.classList.remove("same-as-selected"));
+                    this.classList.add("same-as-selected");
+
+                    selected.style.color = "#333";
+                    closeDropdown();
                 });
-                this.classList.add("same-as-selected");
-
-                // Change text color to confirm a choice was made
-                selected.style.color = "#333";
-
-                closeDropdown();
             });
         });
 
-        // Close dropdown when clicking outside
-        document.addEventListener("click", function (e) {
-            if (!e.target.matches(".select-selected")) {
-                closeDropdown();
-            }
+        document.addEventListener("click", function () {
+            closeAllDropdowns();
         });
     }
 
@@ -76,6 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const dashboardWrapper = document.querySelector(".dashboard-wrapper");
 
     if (sidebar && dashboardWrapper) {
+        const rootStyles = getComputedStyle(document.documentElement);
+        const brand = (rootStyles.getPropertyValue("--brand") || "").trim() || "#D9A6F0";
         // Create a hamburger toggle button
         const toggleBtn = document.createElement("button");
         toggleBtn.id = "sidebar-toggle";
@@ -87,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
             top: 15px;
             left: 15px;
             z-index: 1000;
-            background: #CB87E6;
+            background: ${brand};
             color: white;
             border: none;
             border-radius: 10px;
@@ -120,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleBtn.style.background = "#b56fd1";
         });
         toggleBtn.addEventListener("mouseleave", () => {
-            toggleBtn.style.background = "#CB87E6";
+            toggleBtn.style.background = brand;
         });
 
         window.addEventListener("resize", handleResize);

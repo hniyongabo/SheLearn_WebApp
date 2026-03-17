@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="region">Which part of Africa are you from?</label>
+                    <label for="region-input">Which part of Africa are you from?</label>
                     <div class="custom-select" id="region-dropdown">
                         <div class="select-selected">Select your region</div>
                         <div class="select-items select-hide">
@@ -35,8 +35,20 @@
                             <div data-value="west">West Africa</div>
                         </div>
                     </div>
-                    <!-- Hidden input to hold the value for form submission -->
                     <input type="hidden" name="region" id="region-input" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="course-input">Which course are you interested in?</label>
+                    <div class="custom-select" id="course-dropdown">
+                        <div class="select-selected">Select your course</div>
+                        <div class="select-items select-hide">
+                            <div data-value="software-development">Software Development</div>
+                            <div data-value="product-design">Product Design</div>
+                            <div data-value="data-science-analysis">Data Science &amp; Analysis</div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="course" id="course-input" required>
                 </div>
 
                 <div class="input-group">
