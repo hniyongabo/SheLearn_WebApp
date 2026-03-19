@@ -25,6 +25,7 @@
 
                 <div class="input-group">
                     <label for="region-input">Which part of Africa are you from?</label>
+                    <!-- Unique dropdown id + hidden input prevents collisions when multiple custom-selects exist. -->
                     <div class="custom-select" id="region-dropdown">
                         <div class="select-selected">Select your region</div>
                         <div class="select-items select-hide">
@@ -40,6 +41,7 @@
 
                 <div class="input-group">
                     <label for="course-input">Which course are you interested in?</label>
+                    <!-- Same markup/classes as region dropdown; only ids/hidden inputs differ to avoid redundancy & JS conflicts. -->
                     <div class="custom-select" id="course-dropdown">
                         <div class="select-selected">Select your course</div>
                         <div class="select-items select-hide">

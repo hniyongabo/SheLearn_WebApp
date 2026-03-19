@@ -13,42 +13,53 @@
 
 <body class="dashboard-page">
     <div class="page-container page-container-tight">
-        <div class="logo page-logo">SheLearn Admin</div>
+        <!-- Keep admin title readable (black) while preserving global .logo brand styling elsewhere. -->
+        <div class="dashboard-branding" style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+            <div class="logo" style="margin-bottom: 0;">SheLearn</div>
+            <h2 style="color: #35B7A2; margin-bottom: 0;">Admin Dashboard</h2>
+        </div>
 
         <section class="stats-container">
+            <!-- Stat cards use shared .stat-box styles so visual system stays consistent across dashboards. -->
             <div class="stat-box">
                 <span class="stat-number">85</span>
                 <p>Total Students</p>
             </div>
-            <div class="stat-box" style="background: #4A3B52;">
+            <!-- Alternate stat background kept within brand palette (no inline styles). -->
+            <div class="stat-box stat-box-alt">
                 <span class="stat-number">4</span>
                 <p>Facilitators</p>
             </div>
-            <div class="stat-box" style="background: #ffffff; color: #333; border: 2px solid #FBE9FB;">
+            <!-- Outline variant improves contrast for "neutral" stats while reusing layout/spacing from .stat-box. -->
+            <div class="stat-box stat-box-outline">
                 <span class="stat-number">92%</span>
                 <p>Platform Progress</p>
             </div>
         </section>
 
         <!-- Analytics Chart Panel -->
-        <div class="panel" style="margin-bottom: 30px;">
+        <!-- Utility spacing class replaces inline margin for maintainability. -->
+        <div class="panel mb-30">
             <h4 class="panel-title">Analytics: User Time on Platform</h4>
-            <div class="chart-wrapper" style="position: relative; height: 300px; width: 100%;">
+            <!-- Chart wrapper class replaces inline sizing; keeps layout consistent across pages. -->
+            <div class="chart-wrapper">
                 <canvas id="userTimeChart"></canvas>
             </div>
         </div>
 
         <!-- User Management Panel -->
         <div class="panel">
-            <div class="page-header" style="margin-bottom: 20px;">
-                <h4 class="panel-title" style="margin-bottom: 0;">User Management</h4>
+            <!-- Header spacing moved to CSS so future adjustments don't require editing HTML. -->
+            <div class="page-header mb-20">
+                <h4 class="panel-title mb-0">User Management</h4>
                 <div class="panel-actions">
-                    <button class="btn-primary-small">+ Add User</button>
+                    <button class="btn-primary-small btn-dark">+ Add User</button>
                     <button class="btn-secondary btn-secondary-compact">Generate Report</button>
                 </div>
             </div>
 
-            <div class="table-container" style="overflow-x: auto;">
+            <!-- Horizontal scroll is a shared class so tables stay usable on small screens. -->
+            <div class="table-container">
                 <table>
                     <thead>
                         <tr>

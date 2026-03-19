@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const customSelects = document.querySelectorAll(".custom-select");
 
     if (customSelects.length > 0) {
+        // Support multiple custom-selects on the same page (e.g., region + course)
+        // without duplicating CSS/JS or relying on hard-coded element ids.
         function closeAllDropdowns(exceptItems = null, exceptSelected = null) {
             customSelects.forEach(selectEl => {
                 const itemsEl = selectEl.querySelector(".select-items");
@@ -85,6 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const dashboardWrapper = document.querySelector(".dashboard-wrapper");
 
     if (sidebar && dashboardWrapper) {
+        // Read brand color from CSS variables so the mobile toggle stays in sync
+        // when the palette changes (no hard-coded purple here).
         const rootStyles = getComputedStyle(document.documentElement);
         const brand = (rootStyles.getPropertyValue("--brand") || "").trim() || "#D9A6F0";
         // Create a hamburger toggle button
