@@ -68,12 +68,13 @@ body {
 }
 
 .stat-box-alt {
-    background: #4A3B52;
+    background: #35B7A2;
+    color: white;
 }
 
 .stat-box-outline {
-    background: #ffffff;
-    color: #333;
+    background: #35B7A2;
+    color: white;
     border: 2px solid #FBE9FB;
 }
 
@@ -718,7 +719,7 @@ td {
 }
 
 .stat-box {
-    background: rgba(7, 177, 149, 0.15);
+    background: #84d3c6;
     color: white;
     border-radius: 18px;
     padding: 25px 30px;
