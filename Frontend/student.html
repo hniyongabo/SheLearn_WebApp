@@ -7,6 +7,113 @@
     <title>Student Dashboard | SheLearn</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: linear-gradient(180deg, #FFF6FA, #f9f7fb);
+        }
+        
+        .dashboard-wrapper {
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        .dashboard-header {
+            padding: 30px 40px;
+            background: linear-gradient(135deg, rgba(217, 166, 240, 0.1), rgba(53, 183, 162, 0.05));
+            border-bottom: 1px solid rgba(217, 166, 240, 0.2);
+        }
+        
+        .card-grid {
+            flex: 1;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .course-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #FBE9FB;
+            box-shadow: 0 4px 15px rgba(217, 166, 240, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(217, 166, 240, 0.2);
+            border-color: rgba(217, 166, 240, 0.5);
+        }
+        
+        .dashboard-card-title {
+            color: #2D3748;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .course-card p {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 20px;
+            flex: 1;
+            line-height: 1.6;
+        }
+        
+        .btn-accent, .btn-secondary {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-accent {
+            background: #35B7A2;
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background: #2a96d8;
+            transform: scale(1.05);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #2D3748;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e5e5;
+            border-color: #35B7A2;
+        }
+    </style>
 
 </head>
 
@@ -15,10 +122,9 @@
         <aside class="sidebar">
             <div class="logo dashboard-logo">SheLearn</div>
             <nav>
-                <a href="#" class="nav-item active">My Dashboard</a>
-                <a href="#" class="nav-item">Course Modules</a>
-                <a href="#" class="nav-item">Assignments</a>
-                <a href="#" class="nav-item">Knowledge Test</a>
+                <a href="student.html" class="nav-item active">My Dashboard</a>
+                <a href="course-modules.html" class="nav-item">Course Modules</a>
+                <a href="knowledge-test.html" class="nav-item">Knowledge Test</a>
                 <!-- Logout uses a dedicated class so it can be styled as a "danger" action without inline styles. -->
                 <a href="landing.html" class="nav-item nav-item-logout">Logout</a>
             </nav>
@@ -33,14 +139,13 @@
             <div class="card-grid">
                 <div class="course-card">
                     <h4 class="dashboard-card-title">Current Module</h4>
-                    <p style="font-size: 14px; margin-bottom: 20px;">Introduction to SQL Queries & Database Management
-                    </p>
-                    <button class="btn-accent">Continue Learning</button>
+                    <p>APIs & Web Scraping - Learn how to fetch data from web services and scrape websites using Python.</p>
+                    <button class="btn-accent" onclick="window.location.href='lesson.html'">Continue Learning</button>
                 </div>
                 <div class="course-card">
-                    <h4 class="dashboard-card-title">Next Assignment</h4>
-                    <p style="font-size: 14px; margin-bottom: 20px;">SQL Murder Mystery - Submission due in 2 days.</p>
-                    <button class="btn-secondary">View Instructions</button>
+                    <h4 class="dashboard-card-title">New Quiz Posted</h4>
+                    <p>Test your knowledge with a new quiz on Data Science concepts. Complete the assessment to track your progress.</p>
+                    <button class="btn-accent" onclick="window.location.href='knowledge-test.html'">Take Quiz</button>
                 </div>
             </div>
         </main>

@@ -239,10 +239,18 @@
 
 .contact-item {
     background: var(--surface);
-    border: 2px solid var(--bg-lavender);
+    border: 2px solid rgba(230, 196, 243, 0.75);
     border-radius: 20px;
     padding: 24px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    transform: translateY(0);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(203, 135, 230, 0.18);
+    border-color: rgba(203, 135, 230, 0.95);
 }
 
 .contact-item h3 {
