@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments | SheLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .assignments-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .assignments-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .assignments-header h1 {
+            color: #2D3748;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .assignments-header p {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #F0D8FA;
+            background: transparent;
+            color: #2D3748;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active {
+            background: #35B7A2;
+            color: white;
+            border-color: #35B7A2;
+        }
+
+        .filter-btn:hover {
+            border-color: #35B7A2;
+            color: #35B7A2;
+        }
+
+        .assignments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .assignment-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 18px;
+            border: 2px solid rgba(230, 196, 243, 0.75);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(203, 135, 230, 0.25);
+            border-color: rgba(203, 135, 230, 0.95);
+        }
+
+        .assignment-module {
+            color: #35B7A2;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .assignment-title {
+            color: #2D3748;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .assignment-description {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .assignment-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .status-pending {
+            background: rgba(255, 165, 0, 0.15);
+            color: #FF9800;
+        }
+
+        .status-submitted {
+            background: rgba(76, 175, 80, 0.15);
+            color: #4CAF50;
+        }
+
+        .status-graded {
+            background: rgba(33, 150, 243, 0.15);
+            color: #2196F3;
+        }
+
+        .assignment-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-view, .btn-submit {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view {
+            background-color: #35B7A2;
+            color: #ffffff;
+            border: 2px solid #35B7A2;
+        }
+
+        .btn-view:hover {
+            background-color: #2a9785;
+            border-color: #2a9785;
+            transform: translateY(-2px);
+        }
+
+        .btn-submit {
+            background-color: #35B7A2;
+            color: #ffffff;
+            border: 2px solid #35B7A2;
+        }
+
+        .btn-submit:hover {
+            background-color: #2a9785;
+            border-color: #2a9785;
+            transform: translateY(-2px);
+        }
+
+        .btn-view-secondary {
+            background-color: transparent;
+            color: #35B7A2;
+            border: 2px solid #35B7A2;
+        }
+
+        .btn-view-secondary:hover {
+            background-color: rgba(53, 183, 162, 0.08);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #777;
+        }
+
+        .empty-state h3 {
+            color: #2D3748;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .btn-back {
+            background-color: transparent;
+            color: #2D3748;
+            border: 2px solid #F0D8FA;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-back:hover {
+            border-color: #35B7A2;
+            color: #35B7A2;
+            background-color: rgba(53, 183, 162, 0.08);
+        }
+
+        @media (max-width: 768px) {
+            .filter-bar {
+                flex-direction: row;
+            }
+
+            .assignments-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="dashboard-page">
+    <div class="assignments-container">
+        <div class="assignments-header">
+            <div class="logo" style="margin-bottom: 15px;">SheLearn</div>
+            <h1>Assignments</h1>
+            <p>Submit your work and track your progress</p>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active">All Assignments</button>
+            <button class="filter-btn">Pending</button>
+            <button class="filter-btn">Submitted</button>
+            <button class="filter-btn">Graded</button>
+        </div>
+
+        <div class="assignments-grid">
+            <!-- Assignment 1 -->
+            <div class="assignment-card">
+                <div class="assignment-module">Module 1</div>
+                <h3 class="assignment-title">Data Analysis Report</h3>
+                <p class="assignment-description">Write a comprehensive report analyzing a dataset of your choice, demonstrating data cleaning, exploration, and key findings.</p>
+                <div class="assignment-meta">
+                    <div class="meta-item">Due: March 28, 2026</div>
+                    <div class="meta-item"> 100 points</div>
+                </div>
+                <span class="status-badge status-pending">Pending Submission</span>
+                <div class="assignment-buttons">
+                    <button class="btn-view">View Details</button>
+                    <button class="btn-submit">Submit Assignment</button>
+                </div>
+            </div>
+
+            <!-- Assignment 2 -->
+            <div class="assignment-card">
+                <div class="assignment-module">Module 2</div>
+                <h3 class="assignment-title">SQL Database Design</h3>
+                <p class="assignment-description">Design a relational database schema for a given business scenario. Create tables, define relationships, and write documentation.</p>
+                <div class="assignment-meta">
+                    <div class="meta-item"> Due: April 4, 2026</div>
+                    <div class="meta-item"> 80 points</div>
+                </div>
+                <span class="status-badge status-pending">Pending Submission</span>
+                <div class="assignment-buttons">
+                    <button class="btn-view">View Details</button>
+                    <button class="btn-submit">Submit Assignment</button>
+                </div>
+            </div>
+
+            <!-- Assignment 3 -->
+            <div class="assignment-card">
+                <div class="assignment-module">Module 1</div>
+                <h3 class="assignment-title">Data Cleaning Exercise</h3>
+                <p class="assignment-description">Clean a messy dataset by handling missing values, duplicates, and outliers. Document your methodology and decisions.</p>
+                <div class="assignment-meta">
+                    <div class="meta-item"> Due: March 29, 2026</div>
+                    <div class="meta-item"> 60 points</div>
+                </div>
+                <span class="status-badge status-submitted">submitted</span>
+                <div class="assignment-buttons">
+                    <button class="btn-view-secondary">View Details</button>
+                </div>
+            </div>
+
+            <!-- Assignment 4 -->
+            <div class="assignment-card">
+                <div class="assignment-module">Module 2</div>
+                <h3 class="assignment-title">Advanced SQL Queries</h3>
+                <p class="assignment-description">Complete a series of complex SQL queries involving joins, aggregations, window functions, and subqueries.</p>
+                <div class="assignment-meta">
+                    <div class="meta-item"> Due: March 31, 2026</div>
+                    <div class="meta-item"> 90 points</div>
+                </div>
+                <span class="status-badge status-graded">Graded: 85/90</span>
+                <div class="assignment-buttons">
+                    <button class="btn-view-secondary">View Feedback</button>
+                </div>
+            </div>
+
+            <!-- Assignment 5 -->
+            <div class="assignment-card">
+                <div class="assignment-module">Module 1</div>
+                <h3 class="assignment-title">Data Types & Functions</h3>
+                <p class="assignment-description">Quiz covering data types, built-in functions, and database operations. 10 questions with 30 minutes time limit.</p>
+                <div class="assignment-meta">
+                    <div class="meta-item"> Due: March 7, 2026</div>
+                    <div class="meta-item"> 50 points</div>
+                </div>
+                <span class="status-badge status-graded">Graded: 48/50</span>
+                <div class="assignment-buttons">
+                    <button class="btn-view-secondary">View Results</button>
+                </div>
+            </div>
+
+            <!-- Assignment 6 -->
+            <div class="assignment-card">
+                <div class="assignment-module">Module 2</div>
+                <h3 class="assignment-title">Real-World SQL Scenario</h3>
+                <p class="assignment-description">Apply SQL skills to solve a real-world business problem. Query provided datasets and provide insights.</p>
+                <div class="assignment-meta">
+                    <div class="meta-item"> Due: March 35, 2026</div>
+                    <div class="meta-item"> 100 points</div>
+                </div>
+                <span class="status-badge status-pending">Pending Submission</span>
+                <div class="assignment-buttons">
+                    <button class="btn-view">View Details</button>
+                    <button class="btn-submit">Submit Assignment</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-back" onclick="window.location.href='student.html'">Back to Dashboard</button>
+    </div>
+
+    <script>
+        // Filter button interactivity
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // View details/submit button handlers
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-view') || e.target.classList.contains('btn-submit')) {
+                alert('Redirecting to assignment details...');
+                // In a real app, you would navigate to the assignment page
+            }
+            if (e.target.classList.contains('btn-view-secondary')) {
+                alert('Loading assignment feedback...');
+            }
+        });
+    </script>
+</body>
+
+</html>

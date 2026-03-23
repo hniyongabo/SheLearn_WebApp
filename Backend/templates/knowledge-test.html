@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Test | SheLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .test-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .test-header h1 {
+            color: #2D3748;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .test-header p {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .question-section {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid #FBE9FB;
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            color: #35B7A2;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            color: #2D3748;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 12px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #ffffff;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            border-color: #35B7A2;
+            background: rgba(53, 183, 162, 0.08);
+        }
+
+        .option input[type="radio"]:checked + label {
+            color: #35B7A2;
+            font-weight: 600;
+        }
+
+        .option label {
+            cursor: pointer;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .test-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn-start, .btn-submit {
+            padding: 14px 32px;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-start, .btn-submit {
+            background-color: #35B7A2;
+            color: #ffffff;
+            border: 2px solid #35B7A2;
+        }
+
+        .btn-start:hover, .btn-submit:hover {
+            background-color: #2a9785;
+            border-color: #2a9785;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background-color: transparent;
+            color: #2D3748;
+            border: 2px solid #F0D8FA;
+        }
+
+        .btn-cancel:hover {
+            border-color: #35B7A2;
+            color: #35B7A2;
+            background-color: rgba(53, 183, 162, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .test-intro {
+            text-align: center;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid #FBE9FB;
+            margin-bottom: 30px;
+        }
+
+        .test-intro p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .progress-info {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body class="dashboard-page">
+    <div class="test-container">
+        <div class="test-header">
+            <div class="logo" style="margin-bottom: 15px;">SheLearn</div>
+            <h1>Knowledge Test</h1>
+            <p>Test your understanding of the course material</p>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="startScreen">
+            <div class="test-intro">
+                <h3 style="color: #2D3748; margin-bottom: 15px;">Ready to Test Your Knowledge?</h3>
+                <p>This test contains 5 questions covering the key concepts from the course modules. You'll have the opportunity to review your answers before submitting.</p>
+                <p><strong>Time Limit:</strong> 15 minutes</p>
+                <button class="btn-start" onclick="startTest()">Start Test</button>
+            </div>
+        </div>
+
+        <!-- Test Screen -->
+        <div id="testScreen" class="hidden">
+            <div class="progress-info">
+                <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question-section">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">What is the primary goal of data analysis?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1a" name="question1" value="a">
+                        <label for="q1a">To collect as much data as possible</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1b" name="question1" value="b">
+                        <label for="q1b">To extract meaningful insights and drive decision-making</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1c" name="question1" value="c">
+                        <label for="q1c">To create complex visualizations</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-section">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Which of the following is a key step in the data analysis process?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q2a" name="question2" value="a">
+                        <label for="q2a">Data cleaning and preparation</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2b" name="question2" value="b">
+                        <label for="q2b">Immediate reporting of raw data</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2c" name="question2" value="c">
+                        <label for="q2c">Skipping validation steps</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-section">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">What does SQL stand for?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q3a" name="question3" value="a">
+                        <label for="q3a">Structured Query Language</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3b" name="question3" value="b">
+                        <label for="q3b">Systematic Question List</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3c" name="question3" value="c">
+                        <label for="q3c">Sequential Query Library</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-section">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Which visualization is best for showing trends over time?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4a" name="question4" value="a">
+                        <label for="q4a">Pie chart</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4b" name="question4" value="b">
+                        <label for="q4b">Line chart</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4c" name="question4" value="c">
+                        <label for="q4c">Scatter plot</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-section">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">What is the purpose of data validation?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q5a" name="question5" value="a">
+                        <label for="q5a">To ensure data quality and accuracy</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5b" name="question5" value="b">
+                        <label for="q5b">To delete unnecessary data</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5c" name="question5" value="c">
+                        <label for="q5c">To format data for printing</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-actions">
+                <button class="btn-submit" onclick="submitTest()">Submit Test</button>
+                <button class="btn-cancel" onclick="cancelTest()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startTest() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('testScreen').classList.remove('hidden');
+        }
+
+        function submitTest() {
+            alert('Test submitted! Your score is being calculated...');
+            // Here you would typically send the answers to a server
+            window.location.href = 'student.html';
+        }
+
+        function cancelTest() {
+            if (confirm('Are you sure you want to cancel? Your progress will not be saved.')) {
+                window.location.href = 'student.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

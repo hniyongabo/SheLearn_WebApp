@@ -430,10 +430,11 @@
 
 <body>
 
-    <!-- ===== FACILITATOR EDIT TOOLBAR (visible only in ?mode=edit) ===== -->
-    <div id="facilitatorEditBar" style="display:none; position:sticky; top:0; z-index:999;
+    {% if is_facilitator %}
+    <!-- ===== FACILITATOR EDIT TOOLBAR (Jinja Secures This) ===== -->
+    <div id="facilitatorEditBar" style="position:sticky; top:0; z-index:999;
          background:#2D3748; color:#fff; padding:12px 24px;
-         display:none; align-items:center; gap:16px; flex-wrap:wrap;
+         display:flex; align-items:center; gap:16px; flex-wrap:wrap;
          font-family:'Inter',sans-serif; font-size:14px; font-weight:600;
          box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
         <span style="color:#D9A6F0; font-size:15px;">&#9998; Facilitator Edit Mode</span>
@@ -448,7 +449,7 @@
                 font-weight:600; font-size:13px; cursor:pointer;">
                 &#10005; Cancel
             </button>
-            <a href="facilitator.html" style="background:transparent; color:#aaa;
+            <a href="/facilitator" style="background:transparent; color:#aaa;
                 border:2px solid rgba(255,255,255,0.15); padding:8px 18px; border-radius:8px;
                 font-weight:600; font-size:13px; cursor:pointer; text-decoration:none;
                 display:inline-flex; align-items:center;">
@@ -456,6 +457,7 @@
             </a>
         </div>
     </div>
+    {% endif %}
 
     <div class="lesson-wrapper">
         <!-- Sidebar Navigation -->
@@ -824,18 +826,27 @@ print(response.text)</code></div>
             hljs.highlightElement(block);
         });
 
-        /* ── FACILITATOR EDIT MODE ─────────────────────────────── */
+        function facilitatorSave() {
+            // In a real backend: collect edits and POST to /api/lessons/update
+            const toast = document.createElement('div');
+            toast.textContent = '✓ Changes saved successfully!';
+            toast.style.cssText = 'position:fixed;bottom:30px;right:30px;background:#35B7A2;color:#fff;' +
+                'padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;' +
+                'z-index:9999;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:opacity 0.4s;';
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function facilitatorCancel() {
+            window.location.href = '/facilitator';
+        }
+    </script>
+
+    {% if is_facilitator %}
+    <script>
+        /* ── FACILITATOR EDIT MODE (Secure Jinja Injection) ─────────────────────────────── */
         (function () {
-            // SECURITY: Check the role stored at login time in localStorage.
-            // A student always has userRole='student'. Changing ?mode=edit in the
-            // URL has zero effect — only a facilitator role unlocks this.
-            const role = localStorage.getItem('userRole');
-            if (role !== 'facilitator') return;
-
-            // Show sticky toolbar
-            const bar = document.getElementById('facilitatorEditBar');
-            bar.style.display = 'flex';
-
             // Make lesson title & description editable
             ['.lesson-title', '.lesson-description'].forEach(sel => {
                 const el = document.querySelector(sel);
@@ -856,23 +867,8 @@ print(response.text)</code></div>
                 el.title = 'Click to edit';
             });
         })();
-
-        function facilitatorSave() {
-            // In a real backend: collect edits and POST to /api/lessons/update
-            const toast = document.createElement('div');
-            toast.textContent = '✓ Changes saved successfully!';
-            toast.style.cssText = 'position:fixed;bottom:30px;right:30px;background:#35B7A2;color:#fff;' +
-                'padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;' +
-                'z-index:9999;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:opacity 0.4s;';
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.style.opacity = '0'; }, 2500);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        function facilitatorCancel() {
-            window.location.href = 'facilitator.html';
-        }
     </script>
+    {% endif %}
 </body>
 
 </html>

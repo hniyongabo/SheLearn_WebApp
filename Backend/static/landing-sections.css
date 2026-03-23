@@ -1,0 +1,307 @@
+/* =========================================================
+   Landing Page Sections (Merged)
+   Extracted from styles.css to keep it shorter.
+   Used by: landing.html
+   ========================================================= */
+.landing-menu {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 10px;
+}
+
+.landing-menu-link {
+    color: #4A3B52;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.landing-menu-link:hover {
+    color: var(--accent-blue);
+}
+
+.landing-section {
+    padding: 70px 20px;
+}
+
+.landing-section-muted {
+    background: rgba(255, 255, 255, 0.55);
+    border-top: 1px solid rgba(230, 196, 243, 0.6);
+    border-bottom: 1px solid rgba(230, 196, 243, 0.6);
+}
+
+.section-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-title {
+    color: var(--ink);
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.section-subtitle {
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 auto 35px auto;
+    max-width: 720px;
+    text-align: center;
+}
+
+/* =========================================================
+   Mission / What we do (independent image sections)
+   Background images are placeholders; you can replace URLs later.
+   ========================================================= */
+.image-section {
+    padding: 90px 20px;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+.image-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.02);
+}
+
+.image-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(74, 59, 82, 0.75), rgba(203, 135, 230, 0.35));
+}
+
+.image-section-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 22px;
+    padding: 34px 32px;
+    backdrop-filter: blur(6px);
+}
+
+.image-section-title {
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 14px;
+}
+
+.image-section-text {
+    font-size: 16px;
+    line-height: 1.8;
+    opacity: 0.95;
+}
+
+.image-section-list {
+    margin-top: 16px;
+    padding-left: 18px;
+    line-height: 1.9;
+}
+
+.image-section-mission::before {
+    background-image: url("https://images.unsplash.com/photo-1526378722473-4c6c3be3a5a3?auto=format&fit=crop&w=1600&q=60");
+}
+
+.image-section-whatwedo::before {
+    background-image: url("https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=1600&q=60");
+}
+
+/* =========================================================
+   Courses (polished image tiles)
+   ========================================================= */
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.course-tile {
+    text-decoration: none;
+    border-radius: 22px;
+    overflow: hidden;
+    display: block;
+    background: var(--surface);
+    border: 2px solid rgba(230, 196, 243, 0.75);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    transform: translateY(0);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.course-tile:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(203, 135, 230, 0.18);
+    border-color: rgba(203, 135, 230, 0.95);
+}
+
+.course-tile-media {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.course-tile-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.55));
+}
+
+.course-tile-title {
+    padding: 18px 18px 20px 18px;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+.course-media-dev {
+    background-image: url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=60");
+}
+
+.course-media-data {
+    background-image: url("https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1600&q=60");
+}
+
+.course-media-ux {
+    background-image: url("https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=60");
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.step {
+    background: var(--surface);
+    border: 2px solid var(--bg-lavender);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+.step-number {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: var(--brand);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.step h3 {
+    color: var(--ink);
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.step p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.section-cta {
+    margin-top: 26px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    text-align: center;
+}
+
+.contact-item {
+    background: var(--surface);
+    border: 2px solid rgba(230, 196, 243, 0.75);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    transform: translateY(0);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(203, 135, 230, 0.18);
+    border-color: rgba(203, 135, 230, 0.95);
+}
+
+.contact-item h3 {
+    color: var(--accent-blue);
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.contact-item p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.contact-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .course-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .image-section {
+        padding: 70px 16px;
+    }
+
+    .image-section-inner {
+        padding: 26px 22px;
+    }
+
+    .image-section-title {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .landing-menu {
+        display: none;
+    }
+}
