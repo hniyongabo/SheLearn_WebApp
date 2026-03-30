@@ -315,7 +315,8 @@ python reset_passwords.py
 - **Never commit `shelearn.db`** — it is also gitignored. On your deployment server, the database is created fresh on first run.
 - Set `SECRET_KEY` as an environment variable on your hosting platform (e.g. Render, Railway, Heroku) — do not put it in source code.
 - Set `debug=False` in `app.run()` before deploying to production.
-- For production, consider replacing SQLite with PostgreSQL and using a proper WSGI server like **Gunicorn**.
+- The app automatically uses PostgreSQL when a `DATABASE_URL` environment variable is set (e.g. on Render), and falls back to SQLite locally. No code changes needed.
+- For production, use a proper WSGI server like **Gunicorn**.
 
 ---
 

@@ -14,7 +14,11 @@ app.permanent_session_lifetime = timedelta(days=2)
 
 # ── Database ──────────────────────────────────────────────────────────────────
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'shelearn.db')
+_db_url = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'shelearn.db'))
+# Render provides postgres:// but SQLAlchemy requires postgresql://
+if _db_url.startswith('postgres://'):
+    _db_url = _db_url.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = _db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 from db import db, User, Progress, LessonContent
