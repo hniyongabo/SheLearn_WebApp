@@ -55,34 +55,67 @@
     max-width: 720px;
     text-align: center;
 }
+.hero-badge {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #4B7BFF;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(203, 135, 230, 0.15);
+}
 
 /* =========================================================
    Mission / What we do (independent image sections)
-   Background images are placeholders; you can replace URLs later.
+   Background images
    ========================================================= */
-.image-section {
-    padding: 90px 20px;
+.mission-carousel-wrapper {
+    position: relative;
+}
+
+/* Let Bootstrap control display (none → block) so slide transitions work.
+   Vertical centering is handled by flex on .carousel-slide-content instead. */
+.mission-carousel-wrapper .carousel-item {
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #ffffff;
     position: relative;
     overflow: hidden;
-    color: #ffffff;
 }
 
-.image-section::before {
-    content: "";
+.mission-carousel-wrapper .carousel-slide-mission {
+    background-image: url("/hero-bg.jpeg");
+    background-position: center center;
+}
+
+.mission-carousel-wrapper .carousel-slide-whatwedo {
+    background-image: url("/ladder.jpeg");
+    background-position: top center;
+}
+
+/* Dark gradient overlay — covers the full slide */
+.carousel-slide-overlay {
     position: absolute;
     inset: 0;
-    background-size: cover;
-    background-position: center;
-    transform: scale(1.02);
+    background: linear-gradient(135deg, rgba(74, 59, 82, 0.82), rgba(203, 135, 230, 0.42));
+    pointer-events: none;
+    z-index: 0;
 }
 
-.image-section::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(74, 59, 82, 0.75), rgba(203, 135, 230, 0.35));
+/* Content wrapper: flex centres the card vertically & horizontally */
+.carousel-slide-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    padding: 80px 20px;
 }
 
+/* Frosted glass card — same look as the old image-section-inner */
 .image-section-inner {
     position: relative;
     z-index: 1;
@@ -100,35 +133,93 @@
     font-weight: 900;
     line-height: 1.15;
     margin-bottom: 14px;
+    color: #ffffff;
 }
 
 .image-section-text {
     font-size: 16px;
     line-height: 1.8;
     opacity: 0.95;
+    color: #ffffff;
 }
 
 .image-section-list {
     margin-top: 16px;
     padding-left: 18px;
     line-height: 1.9;
+    color: #ffffff;
 }
 
-.image-section-mission::before {
-    background-image: url("https://images.unsplash.com/photo-1526378722473-4c6c3be3a5a3?auto=format&fit=crop&w=1600&q=60");
+/* Indicator dots — styled to match the SheLearn brand */
+.mission-carousel-wrapper .carousel-indicators [data-bs-target] {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.55);
+    border: none;
+    transition: background-color 0.3s ease;
 }
 
-.image-section-whatwedo::before {
-    background-image: url("https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=1600&q=60");
+.mission-carousel-wrapper .carousel-indicators .active {
+    background-color: #D9A6F0;
 }
+
+/* Prev / Next arrow buttons */
+.mission-carousel-wrapper .carousel-control-prev,
+.mission-carousel-wrapper .carousel-control-next {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s ease;
+}
+
+.mission-carousel-wrapper .carousel-control-prev {
+    left: 20px;
+}
+
+.mission-carousel-wrapper .carousel-control-next {
+    right: 20px;
+}
+
+.mission-carousel-wrapper .carousel-control-prev:hover,
+.mission-carousel-wrapper .carousel-control-next:hover {
+    background: rgba(217, 166, 240, 0.45);
+}
+
+@media (max-width: 600px) {
+    .mission-carousel-wrapper .carousel-item {
+        min-height: 400px;
+    }
+
+    .carousel-slide-content {
+        padding: 70px 16px;
+    }
+
+    .image-section-inner {
+        padding: 26px 22px;
+    }
+
+    .image-section-title {
+        font-size: 30px;
+    }
+}
+
+
 
 /* =========================================================
    Courses (polished image tiles)
    ========================================================= */
 .course-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    max-width: 860px;
+    margin: 0 auto;
 }
 
 .course-tile {
@@ -150,7 +241,7 @@
 }
 
 .course-tile-media {
-    height: 200px;
+    height: 280px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -160,26 +251,22 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.55));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.55));
 }
 
 .course-tile-title {
-    padding: 18px 18px 20px 18px;
-    font-size: 18px;
+    padding: 22px 22px 24px 22px;
+    font-size: 22px;
     font-weight: 800;
     color: var(--ink);
 }
 
 .course-media-dev {
-    background-image: url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=60");
+    background-image: url("/dev.jpeg");
 }
 
 .course-media-data {
-    background-image: url("https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1600&q=60");
-}
-
-.course-media-ux {
-    background-image: url("https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=60");
+    background-image: url("/data_sc.jpeg");
 }
 
 .steps {
@@ -276,6 +363,7 @@
 }
 
 @media (max-width: 900px) {
+
     .course-grid,
     .contact-grid {
         grid-template-columns: 1fr;
@@ -287,8 +375,9 @@
 }
 
 @media (max-width: 600px) {
-    .image-section {
-        padding: 70px 16px;
+    .carousel-slide-content {
+        min-height: 380px;
+        padding: 60px 16px;
     }
 
     .image-section-inner {
@@ -296,7 +385,7 @@
     }
 
     .image-section-title {
-        font-size: 30px;
+        font-size: 28px;
     }
 }
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facilitator Dashboard | SheLearn</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         .fac-grid {
@@ -42,8 +42,9 @@
             width: fit-content;
         }
 
-        .tag-lesson   { background: rgba(53,183,162,0.15); color: #35B7A2; }
-        .tag-ai       { background: rgba(217,166,240,0.2);  color: #b56fd1; }
+        .tag-lesson { background: rgba(53, 183, 162, 0.15); color: #35B7A2; }
+        .tag-ai     { background: rgba(217, 166, 240, 0.2);  color: #b56fd1; }
+        .tag-dev    { background: rgba(255, 193, 7, 0.15);   color: #b8860b; }
 
         .material-card h4 {
             font-size: 16px;
@@ -73,8 +74,8 @@
             font-size: 13px;
             font-weight: 600;
             border-radius: 10px;
-            border: 2px solid rgba(53,183,162,0.4);
-            background: rgba(53,183,162,0.12);
+            border: 2px solid rgba(53, 183, 162, 0.4);
+            background: rgba(53, 183, 162, 0.12);
             color: #35B7A2;
             text-decoration: none;
             transition: all 0.2s ease;
@@ -95,8 +96,8 @@
             font-size: 13px;
             font-weight: 600;
             border-radius: 10px;
-            border: 2px solid rgba(217,166,240,0.5);
-            background: rgba(217,166,240,0.12);
+            border: 2px solid rgba(217, 166, 240, 0.5);
+            background: rgba(217, 166, 240, 0.12);
             color: #b56fd1;
             text-decoration: none;
             transition: all 0.2s ease;
@@ -108,6 +109,66 @@
             border-color: #D9A6F0;
             color: #fff;
         }
+
+        /* Progress table */
+        .progress-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .progress-table th {
+            background: #f9f7fb;
+            color: #2D3748;
+            font-weight: 700;
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 2px solid #FBE9FB;
+        }
+
+        .progress-table td {
+            padding: 11px 14px;
+            color: #555;
+            border-bottom: 1px solid #f3f0f7;
+        }
+
+        .progress-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .progress-table tr:hover td {
+            background: #fdf9ff;
+        }
+
+        .badge-done {
+            display: inline-block;
+            background: rgba(53, 183, 162, 0.15);
+            color: #35B7A2;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .track-pill {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 9px;
+            border-radius: 20px;
+            background: rgba(217, 166, 240, 0.18);
+            color: #9b59b6;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #aaa;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -116,81 +177,104 @@
         <header class="page-header">
             <div>
                 <h2>Facilitator Panel</h2>
-                <p class="dashboard-subtitle">Managing: Data Science and Engineering Track</p>
+                <p class="dashboard-subtitle">Managing: SheLearn Course Tracks</p>
             </div>
-            <button class="btn-accent">+ Upload New Material</button>
+            <a class="btn-accent" href="/logout">Log Out</a>
         </header>
 
         <!-- ===== COURSE MATERIALS ===== -->
         <div class="panel mb-30">
             <h4 class="panel-title">Course Materials</h4>
             <p style="color:#777; font-size:14px; margin-bottom:4px;">
-                View and edit the lessons assigned to your track. Click <strong>View</strong> to read the material, or <strong>Edit</strong> to open it in edit mode.
+                Click <strong>View</strong> to read the lesson, or <strong>Edit</strong> to open it in facilitator edit mode.
             </p>
 
             <div class="fac-grid">
-                <!-- Lesson: APIs & Web Scraping -->
+                <!-- Data Science Track -->
                 <div class="material-card">
                     <span class="material-card-tag tag-lesson">Data Science – Lesson</span>
                     <h4>APIs &amp; Web Scraping</h4>
                     <p>Covers REST APIs, JSON, API keys, BeautifulSoup, and practical Python scraping examples.</p>
                     <div class="material-card-actions">
-                        <a class="btn-view" href="lesson.html" target="_blank">&#128065; View</a>
-                        <button class="btn-edit-mat" onclick="openEditMode('lesson.html')">&#9998; Edit</button>
+                        <a class="btn-view" href="/lesson" target="_blank">&#128065; View</a>
+                        <a class="btn-edit-mat" href="/lesson" target="_blank">&#9998; Edit</a>
                     </div>
                 </div>
 
-                <!-- Lesson: Introduction to AI -->
                 <div class="material-card">
-                    <span class="material-card-tag tag-ai">AI Intro – Module</span>
+                    <span class="material-card-tag tag-ai">Data Science – Module</span>
                     <h4>Introduction to Artificial Intelligence</h4>
                     <p>Covers deep learning, reinforcement learning, computer vision, NLP, and data scientist skills.</p>
                     <div class="material-card-actions">
-                        <a class="btn-view" href="ai-intro.html" target="_blank">&#128065; View</a>
-                        <button class="btn-edit-mat" onclick="openEditMode('ai-intro.html')">&#9998; Edit</button>
+                        <a class="btn-view" href="/ai-intro" target="_blank">&#128065; View</a>
+                        <a class="btn-edit-mat" href="/ai-intro" target="_blank">&#9998; Edit</a>
+                    </div>
+                </div>
+
+                <!-- Software Development Track -->
+                <div class="material-card">
+                    <span class="material-card-tag tag-dev">Software Dev – Lesson</span>
+                    <h4>SRS Document</h4>
+                    <p>Software Requirements Specification — structure, functional &amp; non-functional requirements, and real-world examples.</p>
+                    <div class="material-card-actions">
+                        <a class="btn-view" href="/srs" target="_blank">&#128065; View</a>
+                        <a class="btn-edit-mat" href="/srs" target="_blank">&#9998; Edit</a>
+                    </div>
+                </div>
+
+                <div class="material-card">
+                    <span class="material-card-tag tag-dev">Software Dev – Lesson</span>
+                    <h4>Software Design &amp; UML</h4>
+                    <p>Architecture patterns, OOP design patterns, and in-depth coverage of all major UML diagram types.</p>
+                    <div class="material-card-actions">
+                        <a class="btn-view" href="/uml" target="_blank">&#128065; View</a>
+                        <a class="btn-edit-mat" href="/uml" target="_blank">&#9998; Edit</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ===== RECENT SUBMISSIONS ===== -->
+        <!-- ===== STUDENT PROGRESS ===== -->
         <section class="table-section">
-            <h4 class="panel-title">Recent Submissions</h4>
-            <table>
+            <h4 class="panel-title">Student Lesson Progress</h4>
+            <p style="color:#777; font-size:14px; margin-bottom:12px;">
+                Automatically updated when a student clicks <strong>Mark as Complete</strong> on a lesson.
+            </p>
+
+            {% if progress_records %}
+            <table class="progress-table">
                 <thead>
                     <tr>
                         <th>Student Name</th>
-                        <th>Module</th>
+                        <th>Track</th>
+                        <th>Lesson Completed</th>
+                        <th>Date &amp; Time</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for progress, user in progress_records %}
                     <tr>
-                        <td>Harmony Naomi</td>
-                        <td>Week 2: Web Scraping</td>
-                        <td><span class="badge-pending">Pending Grade</span></td>
-                        <td><a href="#" class="table-link">Open File</a></td>
+                        <td><strong>{{ user.name }}</strong></td>
+                        <td>
+                            <span class="track-pill">
+                                {{ user.track | replace('-', ' ') | title if user.track else '—' }}
+                            </span>
+                        </td>
+                        <td>{{ progress.lesson_name }}</td>
+                        <td>{{ progress.completed_at.strftime('%d %b %Y, %H:%M') }}</td>
+                        <td><span class="badge-done">&#10003; Complete</span></td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+            <div class="empty-state">
+                No lessons marked as complete yet. Students will appear here once they complete a lesson.
+            </div>
+            {% endif %}
         </section>
     </div>
-
-    <script>
-        /**
-         * openEditMode — sets the facilitator role in localStorage then opens
-         * the lesson in a new tab. The lesson page reads this role to decide
-         * whether to show the edit toolbar.
-         *
-         * NOTE: localStorage is a frontend-only safeguard. The real security
-         * gate must be on the Flask backend (session role check before rendering).
-         */
-        function openEditMode(page) {
-            localStorage.setItem('userRole', 'facilitator');
-            window.open(page, '_blank');
-        }
-    </script>
 </body>
 
 </html>

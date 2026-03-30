@@ -5,11 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up | SheLearn</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">
+                        {{ message }}
+                        <button class="flash-close" onclick="this.parentElement.remove()">&times;</button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
     <div class="signup-container">
         <div class="signup-card">
@@ -17,15 +30,14 @@
             <h4>Create Your Account</h4>
             <p class="subtitle">Join a safe space for female students to learn and grow</p>
 
-            <form>
+            <form action="/SignUp" method="POST">
                 <div class="input-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" placeholder="Enter your name" required>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
                 </div>
 
                 <div class="input-group">
                     <label for="region-input">Which part of Africa are you from?</label>
-                    <!-- Unique dropdown id + hidden input prevents collisions when multiple custom-selects exist. -->
                     <div class="custom-select" id="region-dropdown">
                         <div class="select-selected">Select your region</div>
                         <div class="select-items select-hide">
@@ -43,13 +55,13 @@
                     <label for="course-input">Which course are you interested in?</label>
                     <!-- Same markup/classes as region dropdown; only ids/hidden inputs differ to avoid redundancy & JS conflicts. -->
                     <div class="custom-select" id="course-dropdown">
-                        <div class="select-selected">Select your course</div>
+                        <div class="select-selected" name="track">Select your course</div>
                         <div class="select-items select-hide">
                             <div data-value="software-development">Software Development</div>
                             <div data-value="data-science-analysis">Data Science &amp; Analysis</div>
                         </div>
                     </div>
-                    <input type="hidden" name="course" id="course-input" required>
+                    <input type="hidden" name="track" id="course-input" required>
                 </div>
 
                 <div class="input-group">
@@ -59,29 +71,29 @@
 
                 <div class="input-group">
                     <label for="email">Student Email</label>
-                    <input type="email" id="email" placeholder="name@gmail.com" required>
+                    <input type="email" name="email" id="email" placeholder="name@gmail.com" required>
                 </div>
 
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
+                    <input type="password" name="password" id="password" placeholder="••••••••" required>
                 </div>
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="verify" required>
-                    <label for="verify">I am a female student and agree to the community guidelines.</label>
+                    <label for="verify">I am an African female student and agree to the community guidelines.</label>
                 </div>
 
                 <button type="submit" class="btn-primary">Sign Up</button>
             </form>
 
             <p class="footer-text">
-                Already have an account? <a href="login.html">Sign In</a>
+                Already have an account? <a href="/login">Sign In</a>
             </p>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </body>
 
 </html>

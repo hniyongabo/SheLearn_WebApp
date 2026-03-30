@@ -44,6 +44,7 @@
 
         .tag-lesson   { background: rgba(53,183,162,0.15); color: #35B7A2; }
         .tag-ai       { background: rgba(217,166,240,0.2);  color: #b56fd1; }
+        .tag-srs      { background: rgba(255,179,71,0.15);  color: #d4850a; }
 
         .material-card h4 {
             font-size: 16px;
@@ -118,7 +119,7 @@
                 <h2>Facilitator Panel</h2>
                 <p class="dashboard-subtitle">Managing: Data Science and Engineering Track</p>
             </div>
-            <button class="btn-accent">+ Upload New Material</button>
+        
         </header>
 
         <!-- ===== COURSE MATERIALS ===== -->
@@ -135,8 +136,8 @@
                     <h4>APIs &amp; Web Scraping</h4>
                     <p>Covers REST APIs, JSON, API keys, BeautifulSoup, and practical Python scraping examples.</p>
                     <div class="material-card-actions">
-                        <a class="btn-view" href="lesson.html" target="_blank">&#128065; View</a>
-                        <button class="btn-edit-mat" onclick="openEditMode('lesson.html')">&#9998; Edit</button>
+                        <a class="btn-view" href="/lesson" target="_blank">&#128065; View</a>
+                        <button class="btn-edit-mat" onclick="openEditMode('/lesson')">&#9998; Edit</button>
                     </div>
                 </div>
 
@@ -146,8 +147,19 @@
                     <h4>Introduction to Artificial Intelligence</h4>
                     <p>Covers deep learning, reinforcement learning, computer vision, NLP, and data scientist skills.</p>
                     <div class="material-card-actions">
-                        <a class="btn-view" href="ai-intro.html" target="_blank">&#128065; View</a>
+                        <a class="btn-view" href="/ai-intro" target="_blank">&#128065; View</a>
                         <button class="btn-edit-mat" onclick="openEditMode('ai-intro.html')">&#9998; Edit</button>
+                    </div>
+                </div>
+
+                <!-- Lesson: SRS Document -->
+                <div class="material-card">
+                    <span class="material-card-tag tag-srs">Software Dev – Lesson</span>
+                    <h4>Writing an SRS Document</h4>
+                    <p>Teaches students how to write a professional Software Requirements Specification — functional &amp; non-functional requirements, templates, and a real-world example.</p>
+                    <div class="material-card-actions">
+                        <a class="btn-view" href="/srs" target="_blank">&#128065; View</a>
+                        <button class="btn-edit-mat" onclick="openEditMode('/srs')">&#9998; Edit</button>
                     </div>
                 </div>
             </div>

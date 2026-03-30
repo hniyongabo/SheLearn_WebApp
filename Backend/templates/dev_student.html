@@ -1,0 +1,16 @@
+{% extends 'student.html' %}
+
+{% block nav_knowledge_test %}{% endblock %}
+
+{% block card_knowledge_test %}{% endblock %}
+
+{% block card_lesson %}
+<div class="course-card">
+    <h4 class="dashboard-card-title">Lesson</h4>
+    <p>Learn about the pre-requisites for creating a software project</p>
+    <button class="btn-accent" onclick="window.location.href='/srs'">Go To Lesson</button>
+</div>
+{% endblock %}
+{% block modules %}<a href="/dev_modules" class="nav-item">Course Modules</a>{% endblock %}
+{% block modules_btn %}<button class="btn-accent" onclick="window.location.href='/dev_modules'">Go To Modules</button>{% endblock %}
+{% block page_bg %}{% endblock %}

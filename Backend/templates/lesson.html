@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson: APIs & Web Scraping | SheLearn</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-light.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -433,12 +433,13 @@
     {% if is_facilitator %}
     <!-- ===== FACILITATOR EDIT TOOLBAR (Jinja Secures This) ===== -->
     <div id="facilitatorEditBar" style="position:sticky; top:0; z-index:999;
-         background:#2D3748; color:#fff; padding:12px 24px;
+         background:#fff6fa; color:#2D3748; padding:12px 24px;
          display:flex; align-items:center; gap:16px; flex-wrap:wrap;
          font-family:'Inter',sans-serif; font-size:14px; font-weight:600;
-         box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
-        <span style="color:#D9A6F0; font-size:15px;">&#9998; Facilitator Edit Mode</span>
-        <span style="color:#aaa; font-weight:400;">You are editing: <strong style="color:#fff;">APIs &amp; Web Scraping</strong></span>
+         border-bottom: 2px solid #FBE9FB;
+         box-shadow: 0 2px 10px rgba(203,135,230,0.12);">
+        <span style="color:#b56fd1; font-size:15px;">&#9998; Facilitator Edit Mode</span>
+        <span style="color:#999; font-weight:400;">You are editing: <strong style="color:#2D3748;">APIs &amp; Web Scraping</strong></span>
         <div style="margin-left:auto; display:flex; gap:10px; flex-wrap:wrap;">
             <button onclick="facilitatorSave()" style="background:#35B7A2; color:#fff; border:none;
                 padding:8px 18px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">
@@ -461,13 +462,17 @@
 
     <div class="lesson-wrapper">
         <!-- Sidebar Navigation -->
-        <div class="lesson-sidebar">
-            <h3>Module Lessons</h3>
-            <div class="lesson-nav">
-                <div class="lesson-nav-item active">APIs & Web Scraping</div>
-                
-            </div>
-        </div>
+        <aside class="lesson-sidebar">
+            <h3>&#128196; Lesson Contents</h3>
+            <nav class="lesson-nav">
+                <a class="lesson-nav-item active" href="#introduction">1. Introduction to APIs</a>
+                <a class="lesson-nav-item" href="#waiter">2. The Waiter Analogy</a>
+                <a class="lesson-nav-item" href="#api-key">3. API Keys &amp; Authentication</a>
+                <a class="lesson-nav-item" href="#json">4. JSON: The Universal Language</a>
+                <a class="lesson-nav-item" href="#web-scraping">5. Web Scraping Basics</a>
+                <a class="lesson-nav-item" href="#code-examples">6. Practical Code Examples</a>
+            </nav>
+        </aside>
 
         <!-- Main Content -->
         <div class="lesson-content">
@@ -775,7 +780,7 @@ print(response.text)</code></div>
                     </div>
                 </div>
                 <div class="button-group">
-                    <button class="btn-secondary-lesson" onclick="window.location.href='course-modules.html'">Back to Modules</button>
+                    <button class="btn-secondary-lesson" onclick="window.location.href='/course-modules'">Back to Modules</button>
                     <button class="btn-primary-lesson" onclick="completeLesson()">Mark as Complete</button>
                     <button class="btn-primary-lesson" onclick="nextLesson()">Next Lesson →</button>
                 </div>
@@ -784,27 +789,31 @@ print(response.text)</code></div>
     </div>
 
     <script>
-        // Mark lesson as complete
         function completeLesson() {
-            const alert = document.getElementById('completeAlert');
-            alert.classList.add('show');
-            
-            // Update progress
-            const progressFill = document.querySelector('.progress-fill');
-            progressFill.style.width = '100%';
-            
-            // Save progress (in real app, this would send to server)
-            localStorage.setItem('lesson_1_completed', 'true');
-            
-            setTimeout(() => {
-                alert.classList.remove('show');
-            }, 3000);
+            fetch('/api/user/progress', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lesson_name: 'APIs & Web Scraping' })
+            })
+            .then(r => r.json())
+            .then(() => {
+                const alertEl = document.getElementById('completeAlert');
+                alertEl.classList.add('show');
+                document.querySelector('.progress-fill').style.width = '100%';
+                setTimeout(() => alertEl.classList.remove('show'), 3000);
+            })
+            .catch(() => {
+                const alertEl = document.getElementById('completeAlert');
+                alertEl.classList.add('show');
+                document.querySelector('.progress-fill').style.width = '100%';
+                setTimeout(() => alertEl.classList.remove('show'), 3000);
+            });
         }
 
         // Navigate to next lesson
         function nextLesson() {
             alert('Next lesson coming soon! Proceeding to Module Overview...');
-            window.location.href = 'course-modules.html';
+            window.location.href = '/course-modules';
         }
 
         // Smooth scroll for table of contents links
@@ -813,6 +822,17 @@ print(response.text)</code></div>
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Sidebar nav: smooth scroll + active highlight
+        document.querySelectorAll('.lesson-nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.lesson-nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
         });
 
@@ -826,16 +846,35 @@ print(response.text)</code></div>
             hljs.highlightElement(block);
         });
 
-        function facilitatorSave() {
-            // In a real backend: collect edits and POST to /api/lessons/update
-            const toast = document.createElement('div');
-            toast.textContent = '✓ Changes saved successfully!';
-            toast.style.cssText = 'position:fixed;bottom:30px;right:30px;background:#35B7A2;color:#fff;' +
-                'padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;' +
-                'z-index:9999;box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:opacity 0.4s;';
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.style.opacity = '0'; }, 2500);
-            setTimeout(() => toast.remove(), 3000);
+        async function facilitatorSave() {
+            const slug        = 'apis-web-scraping';
+            const title       = document.querySelector('.lesson-title')?.innerText.trim()       || '';
+            const description = document.querySelector('.lesson-description')?.innerText.trim() || '';
+            const paragraphs  = [...document.querySelectorAll('.content-text')].map(el => el.innerText.trim());
+
+            function showToast(msg, ok) {
+                const t = document.createElement('div');
+                t.textContent = msg;
+                t.style.cssText = `position:fixed;bottom:30px;right:30px;z-index:9999;
+                    background:${ok ? '#35B7A2' : '#e05252'};color:#fff;
+                    padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;
+                    box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:opacity 0.4s;`;
+                document.body.appendChild(t);
+                setTimeout(() => { t.style.opacity = '0'; }, 2500);
+                setTimeout(() => t.remove(), 3000);
+            }
+
+            try {
+                const res  = await fetch('/api/lessons/update', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({ slug, title, description, paragraphs })
+                });
+                const data = await res.json();
+                showToast(res.ok ? '✓ Changes saved successfully!' : '✗ ' + (data.error || 'Save failed.'), res.ok);
+            } catch (err) {
+                showToast('✗ Network error — changes not saved.', false);
+            }
         }
 
         function facilitatorCancel() {
@@ -843,11 +882,25 @@ print(response.text)</code></div>
         }
     </script>
 
+    {% if saved_content %}
+    <script type="application/json" id="lessonSavedData">{{ saved_content | tojson }}</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const raw = document.getElementById('lessonSavedData');
+            if (!raw) return;
+            const data = JSON.parse(raw.textContent);
+            if (data.title)       { const el = document.querySelector('.lesson-title');       if (el) el.textContent = data.title; }
+            if (data.description) { const el = document.querySelector('.lesson-description'); if (el) el.textContent = data.description; }
+            const els = document.querySelectorAll('.content-text');
+            (data.paragraphs || []).forEach((text, i) => { if (els[i]) els[i].textContent = text; });
+        });
+    </script>
+    {% endif %}
+
     {% if is_facilitator %}
     <script>
-        /* ── FACILITATOR EDIT MODE (Secure Jinja Injection) ─────────────────────────────── */
+        /* ── FACILITATOR EDIT MODE ─────────────────────────────── */
         (function () {
-            // Make lesson title & description editable
             ['.lesson-title', '.lesson-description'].forEach(sel => {
                 const el = document.querySelector(sel);
                 if (!el) return;
@@ -857,8 +910,6 @@ print(response.text)</code></div>
                 el.style.padding = '4px 8px';
                 el.title = 'Click to edit';
             });
-
-            // Make all content-text paragraphs editable
             document.querySelectorAll('.content-text').forEach(el => {
                 el.contentEditable = 'true';
                 el.style.outline = '2px dashed rgba(217,166,240,0.5)';

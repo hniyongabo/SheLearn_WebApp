@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson: Writing an SRS Document | SheLearn</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(180deg, #FFF6FA, #f9f7fb);
+        }
+
+        .lesson-wrapper {
+            display: flex;
+            min-height: 100vh;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .lesson-sidebar {
+            width: 280px;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            border: 1px solid #FBE9FB;
+        }
+
+        .lesson-sidebar h3 {
+            color: #2D3748;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .lesson-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .lesson-nav-item {
+            padding: 12px;
+            background: #f9f7fb;
+            border-radius: 10px;
+            color: #555;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .lesson-nav-item:hover {
+            background: rgba(53, 183, 162, 0.1);
+            color: #35B7A2;
+        }
+
+        .lesson-nav-item.active {
+            background: #35B7A2;
+            color: white;
+        }
+
+        .lesson-content {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid #FBE9FB;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #FBE9FB;
+        }
+
+        .lesson-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .lesson-title {
+            color: #2D3748;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .lesson-description {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: #35B7A2;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: rgba(53, 183, 162, 0.15);
+            color: #35B7A2;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .content-text {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .analogy-box {
+            background: linear-gradient(135deg, rgba(53, 183, 162, 0.08), rgba(217, 166, 240, 0.08));
+            padding: 20px;
+            border-left: 4px solid #35B7A2;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .analogy-box strong {
+            color: #35B7A2;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .concept-card {
+            background: #f9f7fb;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(230, 196, 243, 0.75);
+        }
+
+        .concept-card h4 {
+            color: #2D3748;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .concept-card p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .code-block {
+            background: #2D3748;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .code-block code {
+            font-family: 'Courier New', monospace;
+        }
+
+        .highlight {
+            background: rgba(217, 166, 240, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b56fd1;
+        }
+
+        .key-points {
+            background: #f9f7fb;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #D9A6F0;
+            margin: 20px 0;
+        }
+
+        .key-points h4 {
+            color: #2D3748;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .key-points li {
+            color: #555;
+            padding: 8px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            display: flex;
+            gap: 10px;
+        }
+
+        .key-points li::before {
+            content: "✦";
+            color: #D9A6F0;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 152, 0, 0.08);
+            padding: 15px;
+            border-left: 4px solid #FF9800;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .warning-box strong {
+            color: #FF9800;
+        }
+
+        .table-of-contents {
+            background: #f9f7fb;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(230, 196, 243, 0.75);
+            margin-bottom: 30px;
+        }
+
+        .table-of-contents h4 {
+            color: #2D3748;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            padding: 8px 0;
+        }
+
+        .toc-list a {
+            color: #35B7A2;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .toc-list a:hover {
+            color: #2a9785;
+            text-decoration: underline;
+        }
+
+        .srs-template-box {
+            background: #1e2533;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.9;
+            color: #e2e8f0;
+            border-left: 4px solid #35B7A2;
+            overflow-x: auto;
+        }
+
+        .srs-template-box .t-comment { color: #68d391; }
+        .srs-template-box .t-heading { color: #90cdf4; font-weight: 700; }
+        .srs-template-box .t-sub     { color: #D9A6F0; }
+        .srs-template-box .t-value   { color: #fbd38d; }
+
+        .lesson-footer {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #FBE9FB;
+            flex-wrap: wrap;
+        }
+
+        .progress-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .progress-label {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #35B7A2;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-lesson {
+            background: #35B7A2;
+            color: white;
+            border: 2px solid #35B7A2;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-lesson:hover {
+            background: #2a9785;
+            border-color: #2a9785;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary-lesson {
+            background: transparent;
+            color: #2D3748;
+            border: 2px solid #F0D8FA;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary-lesson:hover {
+            border-color: #35B7A2;
+            color: #35B7A2;
+            background: rgba(53, 183, 162, 0.08);
+        }
+
+        .lesson-complete-alert {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid #4CAF50;
+            color: #2D3748;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .lesson-complete-alert.show {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .lesson-wrapper { flex-direction: column; }
+            .lesson-sidebar { width: 100%; position: static; }
+            .lesson-nav     { flex-direction: row; flex-wrap: wrap; }
+            .lesson-nav-item { flex: 1; min-width: 150px; }
+            .lesson-content  { padding: 30px 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% if is_facilitator %}
+    <!-- ===== FACILITATOR EDIT TOOLBAR ===== -->
+    <div id="facilitatorEditBar" style="position:sticky; top:0; z-index:999;
+         background:#fff6fa; color:#2D3748; padding:12px 24px;
+         display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+         font-family:'Inter',sans-serif; font-size:14px; font-weight:600;
+         border-bottom: 2px solid #FBE9FB;
+         box-shadow: 0 2px 10px rgba(203,135,230,0.12);">
+        <span style="color:#b56fd1; font-size:15px;">&#9998; Facilitator Edit Mode</span>
+        <span style="color:#aaa; font-weight:400;">You are editing: <strong style="color:#fff;">SRS Document</strong></span>
+        <div style="margin-left:auto; display:flex; gap:10px; flex-wrap:wrap;">
+            <button onclick="facilitatorSave()" style="background:#35B7A2; color:#fff; border:none;
+                padding:8px 18px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">
+                &#10003; Save Changes
+            </button>
+            <button onclick="facilitatorCancel()" style="background:rgba(255,255,255,0.1); color:#fff;
+                border:2px solid rgba(255,255,255,0.25); padding:8px 18px; border-radius:8px;
+                font-weight:600; font-size:13px; cursor:pointer;">
+                &#215; Cancel
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="lesson-wrapper">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="lesson-sidebar">
+            <h3>Lesson Contents</h3>
+            <nav class="lesson-nav">
+                <a class="lesson-nav-item active" href="#what-is-srs">1. What is an SRS?</a>
+                <a class="lesson-nav-item" href="#why-it-matters">2. Why It Matters</a>
+                <a class="lesson-nav-item" href="#key-sections">3. Key Sections</a>
+                <a class="lesson-nav-item" href="#functional-req">4. Functional Requirements</a>
+                <a class="lesson-nav-item" href="#non-functional">5. Non-Functional Requirements</a>
+                <a class="lesson-nav-item" href="#writing-guide">6. How to Write One</a>
+                <a class="lesson-nav-item" href="#template">7. SRS Template</a>
+                <a class="lesson-nav-item" href="#example">8. Real-World Example</a>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="lesson-content">
+
+            <div id="lesson-complete-alert" class="lesson-complete-alert">
+                Lesson marked as complete! Great work.
+            </div>
+
+            <!-- Header -->
+            <div class="lesson-header">
+                <div class="lesson-meta">
+                    <span>Software Development Track</span>
+                    <span>45 min read</span>
+                    <span>Beginner–Intermediate</span>
+                </div>
+                <h1 class="lesson-title">Writing a Software Requirements Specification (SRS) Document</h1>
+                <p class="lesson-description">
+                    Before a single line of code is written, every successful software project starts with a plan.
+                    An SRS document is that plan — it defines exactly what the software must do, who it serves,
+                    and the constraints it must meet. In this lesson you will learn how to read, understand,
+                    and write a professional SRS document from scratch.
+                </p>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="table-of-contents">
+                <h4>Table of Contents</h4>
+                <ol class="toc-list">
+                    <li><a href="#what-is-srs">What is an SRS?</a></li>
+                    <li><a href="#why-it-matters">Why It Matters</a></li>
+                    <li><a href="#key-sections">Key Sections of an SRS</a></li>
+                    <li><a href="#functional-req">Functional Requirements</a></li>
+                    <li><a href="#non-functional">Non-Functional Requirements</a></li>
+                    <li><a href="#writing-guide">Step-by-Step Writing Guide</a></li>
+                    <li><a href="#template">SRS Template</a></li>
+                    <li><a href="#example">Real-World Example: SheLearn App</a></li>
+                </ol>
+            </div>
+
+            <!-- Section 1: What is an SRS -->
+            <div class="section" id="what-is-srs">
+                <h2 class="section-title">
+                    <span class="section-number">1</span> What is an SRS?
+                </h2>
+                <p class="content-text">
+                    A <span class="highlight">Software Requirements Specification (SRS)</span> is a formal document
+                    that describes everything a software system should do. It acts as a contract between
+                    the client (the person who wants the software) and the development team (the people who build it).
+                </p>
+                <p class="content-text">
+                    Think of it like an architect's blueprint for a house. Before builders lay a single brick,
+                    the architect draws every room, every door, every window — in precise detail.
+                    An SRS does the same thing for software.
+                </p>
+                <div class="analogy-box">
+                    <strong>Real-world analogy:</strong> Imagine you hired a tailor to make a dress.
+                    Without telling them your measurements, color, fabric, and style — they cannot make what you want.
+                    The SRS is exactly that conversation, written down in a structured format so nothing is left to guessing.
+                </div>
+                <p class="content-text">
+                    The SRS standard most commonly followed is <span class="highlight">IEEE 830</span>,
+                    which gives teams a universal structure so any engineer anywhere in the world can read
+                    and understand the document.
+                </p>
+            </div>
+
+            <!-- Section 2: Why It Matters -->
+            <div class="section" id="why-it-matters">
+                <h2 class="section-title">
+                    <span class="section-number">2</span> Why It Matters
+                </h2>
+                <p class="content-text">
+                    Many software projects fail — not because the developers weren't skilled, but because
+                    nobody clearly defined what needed to be built. Studies consistently show that
+                    fixing a requirement error during development costs <strong>10x more</strong>
+                    than catching it at the requirements stage.
+                </p>
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h4>Prevents Misunderstandings</h4>
+                        <p>Everyone — client, designer, developer, tester — reads the same document and agrees on what "done" looks like.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Guides Development</h4>
+                        <p>Developers use the SRS as a checklist. Each feature gets built to spec, not based on assumptions.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Enables Testing</h4>
+                        <p>QA testers write test cases directly from the SRS requirements — no SRS means no clear pass/fail criteria.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Legal Protection</h4>
+                        <p>If a client later says "this isn't what I wanted," the SRS is the agreed-upon contract that settles disputes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Key Sections -->
+            <div class="section" id="key-sections">
+                <h2 class="section-title">
+                    <span class="section-number">3</span> Key Sections of an SRS
+                </h2>
+                <p class="content-text">
+                    A standard SRS document is divided into these main sections:
+                </p>
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h4>1. Introduction</h4>
+                        <p>Purpose of the document, scope of the software, definitions of terms, and list of references.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>2. Overall Description</h4>
+                        <p>Product perspective, product functions, user classes, operating environment, and constraints.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>3. Functional Requirements</h4>
+                        <p>What the system must DO — every feature and behaviour listed precisely.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>4. Non-Functional Requirements</h4>
+                        <p>How well the system must perform — speed, security, scalability, accessibility.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>5. External Interface Requirements</h4>
+                        <p>User interfaces (UI mockups), hardware interfaces, software interfaces (APIs), communication protocols.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>6. Appendix</h4>
+                        <p>Diagrams, data models, glossary, index — supporting material that doesn't fit in the main sections.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Functional Requirements -->
+            <div class="section" id="functional-req">
+                <h2 class="section-title">
+                    <span class="section-number">4</span> Functional Requirements
+                </h2>
+                <p class="content-text">
+                    Functional requirements describe the <span class="highlight">behaviour</span> of the system —
+                    what it should do in response to inputs. They are written as precise, testable statements.
+                </p>
+                <div class="analogy-box">
+                    <strong>Rule of thumb:</strong> A good functional requirement answers —
+                    <em>"When [something happens], the system shall [do this]."</em>
+                </div>
+                <p class="content-text">
+                    Each requirement is given a unique ID so it can be tracked and tested individually.
+                    Here is the format:
+                </p>
+                <div class="code-block">
+                    <code>FR-01: The system shall allow users to register with a name, email, and password.
+FR-02: The system shall send a confirmation email after successful registration.
+FR-03: The system shall allow registered users to log in using email and password.
+FR-04: The system shall redirect users to their track dashboard upon login.
+FR-05: The system shall allow facilitators to upload new lesson materials.
+FR-06: The system shall display an error message if login credentials are incorrect.</code>
+                </div>
+                <div class="key-points">
+                    <h4>Rules for Writing Functional Requirements</h4>
+                    <ul>
+                        <li>Use "shall" (not "should" or "will") — "shall" means it is mandatory.</li>
+                        <li>One requirement per statement — never combine two behaviours in one line.</li>
+                        <li>Be specific enough that a tester can write a pass/fail test for it.</li>
+                        <li>Avoid vague words like "fast", "user-friendly", or "modern" — those belong in non-functional requirements.</li>
+                        <li>Number every requirement (FR-01, FR-02...) so it can be referenced and tracked.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 5: Non-Functional Requirements -->
+            <div class="section" id="non-functional">
+                <h2 class="section-title">
+                    <span class="section-number">5</span> Non-Functional Requirements
+                </h2>
+                <p class="content-text">
+                    Non-functional requirements (NFRs) define the <span class="highlight">quality attributes</span>
+                    of the system — how well it performs its functions, not just what it does.
+                    They are often called <em>"-ilities"</em> because many end in that suffix.
+                </p>
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h4>Performance</h4>
+                        <p>NFR-01: The system shall load any page within 3 seconds on a standard broadband connection.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Security</h4>
+                        <p>NFR-02: All user passwords shall be hashed using bcrypt before being stored in the database.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Scalability</h4>
+                        <p>NFR-03: The system shall support up to 500 concurrent users without degradation in response time.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Accessibility</h4>
+                        <p>NFR-04: The system shall comply with WCAG 2.1 Level AA accessibility standards.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Reliability</h4>
+                        <p>NFR-05: The system shall have an uptime of at least 99.5% per calendar month.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Maintainability</h4>
+                        <p>NFR-06: All backend code shall include inline documentation and follow PEP 8 style guidelines.</p>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    <strong>Common mistake:</strong> Writing an NFR without a measurable number.
+                    "The system shall be fast" is not a valid NFR. "The system shall respond within 2 seconds"
+                    IS valid — because a tester can measure it.
+                </div>
+            </div>
+
+            <!-- Section 6: Writing Guide -->
+            <div class="section" id="writing-guide">
+                <h2 class="section-title">
+                    <span class="section-number">6</span> Step-by-Step Writing Guide
+                </h2>
+                <p class="content-text">
+                    Follow these steps every time you need to write an SRS document for a project:
+                </p>
+
+                <div class="analogy-box">
+                    <strong>Step 1 — Understand the Project.</strong>
+                    Talk to your client or product owner. Ask: Who are the users? What problem does this solve?
+                    What already exists? What is out of scope?
+                </div>
+
+                <div class="analogy-box" style="border-left-color: #D9A6F0;">
+                    <strong>Step 2 — Define the Scope.</strong>
+                    Write a short paragraph that says what the system WILL do and what it will NOT do.
+                    This prevents "scope creep" — clients asking for more features mid-project.
+                </div>
+
+                <div class="analogy-box">
+                    <strong>Step 3 — Identify User Classes.</strong>
+                    Who uses this system? E.g., Student, Facilitator, Admin. Each class may have
+                    different permissions and features — document them separately.
+                </div>
+
+                <div class="analogy-box" style="border-left-color: #D9A6F0;">
+                    <strong>Step 4 — List Functional Requirements.</strong>
+                    For each user class, list every feature. Use the FR-XX format.
+                    Think: registration, login, dashboard, data input, reports, notifications.
+                </div>
+
+                <div class="analogy-box">
+                    <strong>Step 5 — List Non-Functional Requirements.</strong>
+                    Consider: performance, security, reliability, accessibility, compatibility.
+                    Add measurable targets to each.
+                </div>
+
+                <div class="analogy-box" style="border-left-color: #D9A6F0;">
+                    <strong>Step 6 — Review and Sign Off.</strong>
+                    Share the document with the client and team. Both parties must agree and sign it
+                    before development begins.
+                </div>
+            </div>
+
+            <!-- Section 7: Template -->
+            <div class="section" id="template">
+                <h2 class="section-title">
+                    <span class="section-number">7</span> SRS Template
+                </h2>
+                <p class="content-text">
+                    Use this template as your starting point for any project. Replace the bracketed
+                    placeholders with your actual content.
+                </p>
+                <div class="srs-template-box">
+<span class="t-heading">SOFTWARE REQUIREMENTS SPECIFICATION</span>
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">1. INTRODUCTION</span>
+   <span class="t-sub">1.1 Purpose</span>
+       <span class="t-value">[Describe what this document is for and who it is intended for.]</span>
+
+   <span class="t-sub">1.2 Scope</span>
+       <span class="t-value">[Name the software product. What will it do? What will it NOT do?]</span>
+
+   <span class="t-sub">1.3 Definitions &amp; Acronyms</span>
+       <span class="t-value">SRS  – Software Requirements Specification</span>
+       <span class="t-value">FR   – Functional Requirement</span>
+       <span class="t-value">NFR  – Non-Functional Requirement</span>
+       <span class="t-value">[Add project-specific terms here.]</span>
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">2. OVERALL DESCRIPTION</span>
+   <span class="t-sub">2.1 Product Perspective</span>
+       <span class="t-value">[Is this a new system or part of a larger one?]</span>
+
+   <span class="t-sub">2.2 User Classes</span>
+       <span class="t-value">- [User Class 1]: [describe their role and permissions]</span>
+       <span class="t-value">- [User Class 2]: [describe their role and permissions]</span>
+
+   <span class="t-sub">2.3 Operating Environment</span>
+       <span class="t-value">[What OS, browser, device? E.g., web browser on Windows/macOS/Android.]</span>
+
+   <span class="t-sub">2.4 Constraints</span>
+       <span class="t-value">[E.g., must use Python, must integrate with existing DB, budget limit.]</span>
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">3. FUNCTIONAL REQUIREMENTS</span>
+   <span class="t-sub">3.1 User Registration &amp; Authentication</span>
+       <span class="t-value">FR-01: The system shall ...</span>
+       <span class="t-value">FR-02: The system shall ...</span>
+
+   <span class="t-sub">3.2 [Feature Group 2]</span>
+       <span class="t-value">FR-03: The system shall ...</span>
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">4. NON-FUNCTIONAL REQUIREMENTS</span>
+   <span class="t-value">NFR-01 (Performance):   [measurable target]</span>
+   <span class="t-value">NFR-02 (Security):      [measurable target]</span>
+   <span class="t-value">NFR-03 (Scalability):   [measurable target]</span>
+   <span class="t-value">NFR-04 (Availability):  [measurable target]</span>
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">5. EXTERNAL INTERFACE REQUIREMENTS</span>
+   <span class="t-sub">5.1 User Interface</span>
+       <span class="t-value">[Describe or attach UI mockups / wireframes.]</span>
+
+   <span class="t-sub">5.2 Software Interfaces (APIs)</span>
+       <span class="t-value">[List any external APIs the system will connect to.]</span>
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">6. APPENDIX</span>
+   <span class="t-value">[Data flow diagrams, ER diagrams, use case diagrams, glossary.]</span>
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-sub">Document Version: 1.0 | Date: [DD/MM/YYYY] | Author: [Name]</span>
+                </div>
+            </div>
+
+            <!-- Section 8: Real-World Example -->
+            <div class="section" id="example">
+                <h2 class="section-title">
+                    <span class="section-number">8</span> Real-World Example: SheLearn App
+                </h2>
+                <p class="content-text">
+                    Let's apply everything above to a real project — the SheLearn web application itself.
+                    Here is a partial SRS written for it:
+                </p>
+                <div class="srs-template-box">
+<span class="t-heading">SRS — SheLearn Learning Platform</span>
+<span class="t-sub">Version: 1.0 | Date: March 2026</span>
+<span class="t-comment">─────────────────────────────────────────────</span>
+
+<span class="t-heading">1. INTRODUCTION</span>
+<span class="t-sub">1.1 Purpose</span>
+  This document defines the requirements for SheLearn, an e-learning
+  platform for African female students studying technology.
+
+<span class="t-sub">1.2 Scope</span>
+  SheLearn WILL: host lessons, quizzes, student dashboards, facilitator
+  tools, and track-based content routing.
+  SheLearn WILL NOT: handle payment processing or video streaming
+  in version 1.0.
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">2. USER CLASSES</span>
+  Student      – can view lessons, take quizzes, track progress
+  Facilitator  – can view, edit, and upload lesson materials
+  Admin        – can manage all users and system settings
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">3. FUNCTIONAL REQUIREMENTS</span>
+<span class="t-sub">Authentication</span>
+  <span class="t-value">FR-01: The system shall allow new users to register with name,
+         email, password, region, and chosen track.</span>
+  <span class="t-value">FR-02: The system shall redirect users to a track-specific
+         dashboard after successful registration.</span>
+  <span class="t-value">FR-03: The system shall allow registered users to log in
+         using email and password.</span>
+
+<span class="t-sub">Content Delivery</span>
+  <span class="t-value">FR-04: The system shall display lesson content specific to
+         the student's enrolled track.</span>
+  <span class="t-value">FR-05: The system shall allow facilitators to edit lesson
+         content through a secure edit toolbar.</span>
+  <span class="t-value">FR-06: The system shall allow facilitators to upload new
+         lesson materials via the facilitator panel.</span>
+
+<span class="t-sub">Assessments</span>
+  <span class="t-value">FR-07: The system shall present knowledge-test quizzes to
+         Data Science track students.</span>
+  <span class="t-value">FR-08: The system shall display quiz results immediately
+         after submission.</span>
+
+<span class="t-comment">─────────────────────────────────────────────</span>
+<span class="t-heading">4. NON-FUNCTIONAL REQUIREMENTS</span>
+  <span class="t-value">NFR-01 (Performance):  Pages shall load within 3 seconds.</span>
+  <span class="t-value">NFR-02 (Security):     Passwords shall be hashed with bcrypt.</span>
+  <span class="t-value">NFR-03 (Scalability):  System shall support 200 concurrent users.</span>
+  <span class="t-value">NFR-04 (Accessibility): UI shall meet WCAG 2.1 Level AA.</span>
+                </div>
+
+                <div class="key-points">
+                    <h4>What you just learned</h4>
+                    <ul>
+                        <li>An SRS is the blueprint written before any code is created.</li>
+                        <li>Functional requirements say what the system <em>does</em>; non-functional say how well it does it.</li>
+                        <li>Every requirement needs a unique ID and must be testable.</li>
+                        <li>Use "shall" for mandatory requirements — not "should" or "will".</li>
+                        <li>The SRS is a shared agreement — all stakeholders must review and sign off.</li>
+                        <li>Following IEEE 830 gives your document a professional, universal structure.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="lesson-footer">
+                <div class="progress-section">
+                    <div class="progress-label">Lesson Progress</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn-secondary-lesson" onclick="window.location.href='/dev_modules'">&#8592; Back to Modules</button>
+                    <button class="btn-primary-lesson" onclick="markComplete()">&#10003; Mark Complete</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Smooth scroll for sidebar links
+        document.querySelectorAll('.lesson-nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.lesson-nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Mark lesson complete
+        function markComplete() {
+            fetch('/api/user/progress', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lesson_name: 'SRS Document' })
+            })
+            .then(r => r.json())
+            .then(() => {
+                document.getElementById('progressFill').style.width = '100%';
+                const alertEl = document.getElementById('lesson-complete-alert');
+                alertEl.classList.add('show');
+                setTimeout(() => alertEl.classList.remove('show'), 3000);
+            })
+            .catch(() => {
+                document.getElementById('progressFill').style.width = '100%';
+                const alertEl = document.getElementById('lesson-complete-alert');
+                alertEl.classList.add('show');
+                setTimeout(() => alertEl.classList.remove('show'), 3000);
+            });
+        }
+
+        // Restore progress on reload
+        if (localStorage.getItem('srs_lesson_completed') === 'true') {
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+        async function facilitatorSave() {
+            const slug        = 'srs-document';
+            const title       = document.querySelector('.lesson-title')?.innerText.trim()       || '';
+            const description = document.querySelector('.lesson-description')?.innerText.trim() || '';
+            const paragraphs  = [...document.querySelectorAll('.content-text')].map(el => el.innerText.trim());
+
+            function showToast(msg, ok) {
+                const t = document.createElement('div');
+                t.textContent = msg;
+                t.style.cssText = `position:fixed;bottom:30px;right:30px;z-index:9999;
+                    background:${ok ? '#35B7A2' : '#e05252'};color:#fff;
+                    padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;
+                    box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:opacity 0.4s;`;
+                document.body.appendChild(t);
+                setTimeout(() => { t.style.opacity = '0'; }, 2500);
+                setTimeout(() => t.remove(), 3000);
+            }
+
+            try {
+                const res  = await fetch('/api/lessons/update', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({ slug, title, description, paragraphs })
+                });
+                const data = await res.json();
+                showToast(res.ok ? '✓ Changes saved successfully!' : '✗ ' + (data.error || 'Save failed.'), res.ok);
+            } catch (err) {
+                showToast('✗ Network error — changes not saved.', false);
+            }
+        }
+
+        function facilitatorCancel() {
+            window.location.href = '/facilitator';
+        }
+    </script>
+
+    {% if saved_content %}
+    <script type="application/json" id="lessonSavedData">{{ saved_content | tojson }}</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const raw = document.getElementById('lessonSavedData');
+            if (!raw) return;
+            const data = JSON.parse(raw.textContent);
+            if (data.title)       { const el = document.querySelector('.lesson-title');       if (el) el.textContent = data.title; }
+            if (data.description) { const el = document.querySelector('.lesson-description'); if (el) el.textContent = data.description; }
+            const els = document.querySelectorAll('.content-text');
+            (data.paragraphs || []).forEach((text, i) => { if (els[i]) els[i].textContent = text; });
+        });
+    </script>
+    {% endif %}
+
+    {% if is_facilitator %}
+    <script>
+        /* ── FACILITATOR EDIT MODE ── */
+        (function () {
+            ['.lesson-title', '.lesson-description'].forEach(sel => {
+                const el = document.querySelector(sel);
+                if (!el) return;
+                el.contentEditable = 'true';
+                el.style.outline   = '2px dashed #D9A6F0';
+                el.style.borderRadius = '6px';
+                el.style.padding   = '4px 8px';
+                el.title = 'Click to edit';
+            });
+
+            document.querySelectorAll('.content-text').forEach(el => {
+                el.contentEditable = 'true';
+                el.style.outline   = '2px dashed rgba(217,166,240,0.5)';
+                el.style.borderRadius = '4px';
+                el.style.padding   = '4px 6px';
+                el.title = 'Click to edit';
+            });
+        })();
+    </script>
+    {% endif %}
+
+</body>
+</html>

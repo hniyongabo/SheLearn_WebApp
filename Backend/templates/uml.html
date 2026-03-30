@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson: Software Design & UML | SheLearn</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(180deg, #FFF6FA, #f9f7fb);
+        }
+
+        .lesson-wrapper {
+            display: flex;
+            min-height: 100vh;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .lesson-sidebar {
+            width: 280px;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            border: 1px solid #FBE9FB;
+        }
+
+        .lesson-sidebar h3 {
+            color: #2D3748;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .lesson-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .lesson-nav-item {
+            padding: 12px;
+            background: #f9f7fb;
+            border-radius: 10px;
+            color: #555;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .lesson-nav-item:hover {
+            background: rgba(53, 183, 162, 0.1);
+            color: #35B7A2;
+        }
+
+        .lesson-nav-item.active {
+            background: #35B7A2;
+            color: white;
+        }
+
+        .lesson-content {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid #FBE9FB;
+        }
+
+        .lesson-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #FBE9FB;
+        }
+
+        .lesson-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .lesson-title {
+            color: #2D3748;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .lesson-description {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: #35B7A2;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: rgba(53, 183, 162, 0.15);
+            color: #35B7A2;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .content-text {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .analogy-box {
+            background: linear-gradient(135deg, rgba(53, 183, 162, 0.08), rgba(217, 166, 240, 0.08));
+            padding: 20px;
+            border-left: 4px solid #35B7A2;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .analogy-box strong {
+            color: #35B7A2;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .concept-card {
+            background: #f9f7fb;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(230, 196, 243, 0.75);
+        }
+
+        .concept-card h4 {
+            color: #2D3748;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .concept-card p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .highlight {
+            background: rgba(217, 166, 240, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #b97dd4;
+        }
+
+        .key-points {
+            background: #f9f7fb;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #D9A6F0;
+            margin: 20px 0;
+        }
+
+        .key-points h4 {
+            color: #2D3748;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .key-points li {
+            color: #555;
+            padding: 8px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            display: flex;
+            gap: 10px;
+        }
+
+        .key-points li::before {
+            content: "✦";
+            color: #D9A6F0;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 152, 0, 0.08);
+            padding: 15px;
+            border-left: 4px solid #FF9800;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .warning-box strong {
+            color: #FF9800;
+        }
+
+        .diagram-showcase {
+            background: #f9f7fb;
+            border: 2px solid rgba(53, 183, 162, 0.3);
+            border-radius: 14px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+
+        .diagram-showcase h4 {
+            color: #35B7A2;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .diagram-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-structural {
+            background: rgba(53, 183, 162, 0.15);
+            color: #35B7A2;
+        }
+
+        .badge-behavioral {
+            background: rgba(217, 166, 240, 0.25);
+            color: #9b59b6;
+        }
+
+        .diagram-showcase p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0 0 12px 0;
+        }
+
+        .diagram-showcase ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .diagram-showcase ul li {
+            color: #555;
+            font-size: 14px;
+            padding: 5px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .diagram-showcase ul li::before {
+            content: "→";
+            color: #35B7A2;
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        .uml-ascii {
+            background: #2D3748;
+            color: #a8e6cf;
+            padding: 18px 22px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 15px 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 2px dashed rgba(230, 196, 243, 0.6);
+            margin: 40px 0;
+        }
+
+        .table-of-contents {
+            background: #f9f7fb;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(230, 196, 243, 0.75);
+            margin-bottom: 30px;
+        }
+
+        .table-of-contents h4 {
+            color: #2D3748;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            padding: 7px 0;
+        }
+
+        .toc-list a {
+            color: #35B7A2;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .toc-list a:hover {
+            color: #2a9785;
+            text-decoration: underline;
+        }
+
+        .toc-sub {
+            padding-left: 20px !important;
+        }
+
+        .toc-sub a {
+            color: #9b59b6 !important;
+            font-weight: 500 !important;
+        }
+
+        .lesson-footer {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #FBE9FB;
+            flex-wrap: wrap;
+        }
+
+        .progress-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .progress-label {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #35B7A2;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-lesson {
+            background: #35B7A2;
+            color: white;
+            border: 2px solid #35B7A2;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-lesson:hover {
+            background: #2a9785;
+            border-color: #2a9785;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary-lesson {
+            background: transparent;
+            color: #2D3748;
+            border: 2px solid #F0D8FA;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary-lesson:hover {
+            border-color: #35B7A2;
+            color: #35B7A2;
+            background: rgba(53, 183, 162, 0.08);
+        }
+
+        .lesson-complete-alert {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid #4CAF50;
+            color: #2D3748;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .lesson-complete-alert.show {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .lesson-wrapper {
+                flex-direction: column;
+            }
+
+            .lesson-sidebar {
+                width: 100%;
+                position: static;
+            }
+
+            .lesson-nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .lesson-nav-item {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .lesson-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% if is_facilitator %}
+    <div id="facilitatorEditBar" style="position:sticky; top:0; z-index:999;
+         background:#fff6fa; color:#2D3748; padding:12px 24px;
+         display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+         font-family:'Inter',sans-serif; font-size:14px; font-weight:600;
+         border-bottom: 2px solid #FBE9FB;
+         box-shadow: 0 2px 10px rgba(203,135,230,0.12);">
+        <span style="color:#b56fd1; font-size:15px;">&#9998; Facilitator Edit Mode</span>
+        <span style="color:#aaa; font-weight:400;">You are editing: <strong style="color:#fff;">Software Design &amp; UML</strong></span>
+        <div style="margin-left:auto; display:flex; gap:10px; flex-wrap:wrap;">
+            <button onclick="facilitatorSave()" style="background:#35B7A2; color:#fff; border:none;
+                padding:8px 18px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">
+                &#10003; Save Changes
+            </button>
+            <button onclick="facilitatorCancel()" style="background:rgba(255,255,255,0.1); color:#fff;
+                border:2px solid rgba(255,255,255,0.25); padding:8px 18px; border-radius:8px;
+                font-weight:600; font-size:13px; cursor:pointer;">
+                &#10005; Cancel
+            </button>
+            <a href="/facilitator" style="background:transparent; color:#aaa;
+                border:2px solid rgba(255,255,255,0.15); padding:8px 18px; border-radius:8px;
+                font-weight:600; font-size:13px; cursor:pointer; text-decoration:none;
+                display:inline-flex; align-items:center;">
+                &#8592; Back to Dashboard
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="lesson-wrapper">
+
+        <!-- Sidebar -->
+        <aside class="lesson-sidebar">
+            <h3>Lesson Contents</h3>
+            <nav class="lesson-nav">
+                <a class="lesson-nav-item active" href="#what-is-design">1. What is Software Design?</a>
+                <a class="lesson-nav-item" href="#design-types">2. Types of Software Design</a>
+                <a class="lesson-nav-item" href="#what-is-uml">3. Introduction to UML</a>
+                <a class="lesson-nav-item" href="#structural-diagrams">4. Structural Diagrams</a>
+                <a class="lesson-nav-item" href="#behavioral-diagrams">5. Behavioral Diagrams</a>
+                <a class="lesson-nav-item" href="#when-to-use">6. When to Use Which</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="lesson-content">
+
+            <div class="lesson-complete-alert" id="completeAlert">
+                Lesson marked as complete!
+            </div>
+
+            <!-- Header -->
+            <div class="lesson-header">
+                <div class="lesson-meta">
+                    <span>Lesson 2 of 5</span>
+                    <span>60 minutes</span>
+                    <span>In Progress</span>
+                </div>
+                <h1 class="lesson-title">Software Design &amp; UML Diagrams</h1>
+                <p class="lesson-description">
+                    Understand the different approaches to designing software systems and learn how to communicate
+                    those designs visually using the Unified Modeling Language (UML).
+                </p>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="table-of-contents">
+                <h4>What You'll Learn</h4>
+                <ul class="toc-list">
+                    <li><a href="#what-is-design">What is Software Design?</a></li>
+                    <li><a href="#design-types">Types of Software Design</a></li>
+                    <li><a href="#what-is-uml">Introduction to UML</a></li>
+                    <li><a href="#structural-diagrams">Structural UML Diagrams</a></li>
+                    <li class="toc-sub"><a href="#class-diagram">Class Diagram</a></li>
+                    <li class="toc-sub"><a href="#object-diagram">Object Diagram</a></li>
+                    <li class="toc-sub"><a href="#component-diagram">Component Diagram</a></li>
+                    <li class="toc-sub"><a href="#deployment-diagram">Deployment Diagram</a></li>
+                    <li><a href="#behavioral-diagrams">Behavioral UML Diagrams</a></li>
+                    <li class="toc-sub"><a href="#usecase-diagram">Use Case Diagram</a></li>
+                    <li class="toc-sub"><a href="#sequence-diagram">Sequence Diagram</a></li>
+                    <li class="toc-sub"><a href="#activity-diagram">Activity Diagram</a></li>
+                    <li class="toc-sub"><a href="#state-diagram">State Machine Diagram</a></li>
+                    <li><a href="#when-to-use">When to Use Which Diagram</a></li>
+                </ul>
+            </div>
+
+            <!-- Section 1: What is Software Design -->
+            <div class="section" id="what-is-design">
+                <h2 class="section-title">
+                    <span class="section-number">1</span>
+                    What is Software Design?
+                </h2>
+
+                <p class="content-text">
+                    <span class="highlight">Software design</span> is the process of defining the architecture, components,
+                    modules, interfaces, and data of a system to satisfy specified requirements. It is the blueprint of your
+                    application — the plan before the code.
+                </p>
+
+                <div class="analogy-box">
+                    <strong>Think of it like building a house:</strong> Before laying any bricks, an architect creates
+                    detailed floor plans and blueprints. Software design is exactly that — you plan the structure of your
+                    system before writing a single line of code. This saves enormous time and prevents costly mistakes later.
+                </div>
+
+                <p class="content-text">
+                    Good design answers three fundamental questions: <span class="highlight">What will the system do?</span>
+                    <span class="highlight">How will the pieces be organized?</span> and
+                    <span class="highlight">How will the pieces talk to each other?</span>
+                </p>
+
+                <div class="key-points">
+                    <h4>Why Software Design Matters</h4>
+                    <ul>
+                        <li>Helps teams communicate and agree on a system before building it</li>
+                        <li>Reduces bugs by catching structural flaws early</li>
+                        <li>Makes systems easier to maintain and extend over time</li>
+                        <li>Provides documentation that outlives the original developers</li>
+                        <li>Enables parallel development — different teams work on different parts simultaneously</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 2: Types of Software Design -->
+            <div class="section" id="design-types">
+                <h2 class="section-title">
+                    <span class="section-number">2</span>
+                    Types of Software Design
+                </h2>
+
+                <p class="content-text">
+                    Software design operates at different levels and focuses. There are two main levels —
+                    <span class="highlight">high-level (architectural) design</span> and
+                    <span class="highlight">low-level (detailed) design</span> — and within each, several named approaches:
+                </p>
+
+                <h3 style="color: #2D3748; margin: 20px 0 12px 0; font-size: 17px; font-weight: 700;">Architectural Design Patterns</h3>
+                <p class="content-text">These define the overall structure and organisation of an entire system.</p>
+
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h4>Monolithic Architecture</h4>
+                        <p>The entire application is built as a single, unified unit. Simple to develop initially, but hard to scale or update individual parts without affecting the whole system.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Layered (N-Tier) Architecture</h4>
+                        <p>The system is divided into layers — e.g., Presentation, Business Logic, and Data layers. Each layer only communicates with the one directly above or below it. Clean and easy to maintain.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>MVC (Model-View-Controller)</h4>
+                        <p>Separates an app into three roles: the <strong>Model</strong> (data), the <strong>View</strong> (UI), and the <strong>Controller</strong> (logic connecting them). Used heavily in web frameworks like Django and Flask.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Microservices Architecture</h4>
+                        <p>The system is split into many small, independent services that each do one thing and communicate over APIs. Highly scalable, but more complex to manage. Used by Netflix, Amazon, and Uber.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Event-Driven Architecture</h4>
+                        <p>Components communicate by producing and responding to events rather than calling each other directly. Common in real-time systems like chat apps and IoT platforms.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Client-Server Architecture</h4>
+                        <p>A server provides resources or services, and clients request them. This is the backbone of the web — your browser is a client, and the website's backend is the server.</p>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3 style="color: #2D3748; margin: 20px 0 12px 0; font-size: 17px; font-weight: 700;">Object-Oriented Design Patterns</h3>
+                <p class="content-text">
+                    These are reusable solutions to commonly occurring problems within object-oriented code. They are grouped into three families:
+                </p>
+
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h4>Creational Patterns</h4>
+                        <p>Deal with <strong>how objects are created</strong>. Examples: Singleton (only one instance of a class exists), Factory (a method decides which class to instantiate), Builder (construct complex objects step by step).</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Structural Patterns</h4>
+                        <p>Deal with <strong>how classes and objects are composed</strong> to form larger structures. Examples: Adapter (makes incompatible interfaces work together), Facade (provides a simple interface to a complex system).</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Behavioral Patterns</h4>
+                        <p>Deal with <strong>how objects communicate and share responsibilities</strong>. Examples: Observer (when one object changes, all dependents are notified), Strategy (swap algorithms at runtime), Iterator (traverse a collection uniformly).</p>
+                    </div>
+                </div>
+
+                <div class="analogy-box">
+                    <strong>Quick rule of thumb:</strong> Architectural patterns describe the <em>layout of a city</em> (where roads, buildings, and utilities go). Design patterns describe the <em>design of individual rooms</em> inside those buildings — smaller, reusable solutions inside a larger structure.
+                </div>
+            </div>
+
+            <!-- Section 3: What is UML -->
+            <div class="section" id="what-is-uml">
+                <h2 class="section-title">
+                    <span class="section-number">3</span>
+                    Introduction to UML
+                </h2>
+
+                <p class="content-text">
+                    <span class="highlight">UML (Unified Modeling Language)</span> is a standardised visual language for
+                    describing, designing, and documenting software systems. It was created in the 1990s and is maintained
+                    by the Object Management Group (OMG). UML is not a programming language — it is a
+                    <strong>notation system</strong>, like musical notation is for composers.
+                </p>
+
+                <p class="content-text">
+                    UML gives developers, designers, and stakeholders a shared visual vocabulary. A diagram drawn in
+                    Berlin should be understood the same way in Nairobi or Tokyo, because UML is an international standard.
+                </p>
+
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h4>Two Main Families</h4>
+                        <p><strong>Structural diagrams</strong> show the static parts of a system — what exists and how things are related.<br><br>
+                        <strong>Behavioral diagrams</strong> show the dynamic parts — how things move, change, and interact over time.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>14 Diagram Types</h4>
+                        <p>UML 2 defines 14 official diagram types. In practice, most teams use a core set of 5–7. You'll learn the most important ones in this lesson.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Tools You Can Use</h4>
+                        <p>Draw.io (free), Lucidchart, StarUML, Visual Paradigm, PlantUML (code-based), or even pen and paper for quick sketches.</p>
+                    </div>
+                </div>
+
+                <div class="key-points">
+                    <h4>When Do You Draw UML?</h4>
+                    <ul>
+                        <li>During requirements analysis — Use Case diagrams to capture what the system must do</li>
+                        <li>During system design — Class and Component diagrams to plan structure</li>
+                        <li>During detailed design — Sequence diagrams to plan interactions between components</li>
+                        <li>For documentation — to help new team members understand an existing system</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 4: Structural Diagrams -->
+            <div class="section" id="structural-diagrams">
+                <h2 class="section-title">
+                    <span class="section-number">4</span>
+                    Structural UML Diagrams
+                </h2>
+
+                <p class="content-text">
+                    Structural diagrams answer the question: <span class="highlight">"What does the system consist of?"</span>
+                    They are snapshots — they show the static architecture of a system at a point in time.
+                </p>
+
+                <!-- Class Diagram -->
+                <div class="diagram-showcase" id="class-diagram">
+                    <span class="diagram-badge badge-structural">Structural</span>
+                    <h4>Class Diagram</h4>
+                    <p>
+                        The most widely used UML diagram. It shows the <strong>classes</strong> in a system, their
+                        <strong>attributes</strong> (data they hold), their <strong>methods</strong> (what they can do),
+                        and the <strong>relationships</strong> between them — such as inheritance, association, and composition.
+                    </p>
+                    <p>
+                        Every class is drawn as a rectangle divided into three sections: the class name at the top,
+                        attributes in the middle, and methods at the bottom.
+                    </p>
+                    <ul>
+                        <li>Used during the design phase to plan the objects in your codebase</li>
+                        <li>Relationships: <strong>Association</strong> (uses), <strong>Inheritance</strong> (is-a), <strong>Composition</strong> (owns), <strong>Dependency</strong> (depends on)</li>
+                        <li>Visibility markers: <code>+</code> public, <code>-</code> private, <code>#</code> protected</li>
+                    </ul>
+                    <div class="uml-ascii">┌──────────────────────────┐
+│         Student          │   &lt;&lt;Class Name&gt;&gt;
+├──────────────────────────┤
+│ - studentId : int        │   &lt;&lt;Attributes&gt;&gt;
+│ - name      : String     │
+│ - email     : String     │
+├──────────────────────────┤
+│ + enroll()  : void       │   &lt;&lt;Methods&gt;&gt;
+│ + getGrade(): float      │
+└──────────────────────────┘
+            │ inherits
+┌──────────────────────────┐
+│      GraduateStudent     │
+├──────────────────────────┤
+│ - thesisTopic : String   │
+├──────────────────────────┤
+│ + submitThesis(): void   │
+└──────────────────────────┘</div>
+                </div>
+
+                <!-- Object Diagram -->
+                <div class="diagram-showcase" id="object-diagram">
+                    <span class="diagram-badge badge-structural">Structural</span>
+                    <h4>Object Diagram</h4>
+                    <p>
+                        An object diagram is a <strong>snapshot of a class diagram at a specific moment in time</strong>.
+                        Where a class diagram shows the template, an object diagram shows real instances with actual values.
+                        Think of it as a class diagram filled in with data.
+                    </p>
+                    <ul>
+                        <li>Useful for showing a specific scenario or state your system can be in</li>
+                        <li>Objects are written as <code>objectName : ClassName</code> (underlined)</li>
+                        <li>Helps validate that your class design works with real data</li>
+                    </ul>
+                    <div class="uml-ascii">┌─────────────────────────────┐
+│  harmony : Student          │   &lt;&lt;Object instance&gt;&gt;
+├─────────────────────────────┤
+│ studentId = 1042            │   &lt;&lt;Actual values&gt;&gt;
+│ name      = "Harmony Aisha" │
+│ email     = "h@shelearn.io" │
+└─────────────────────────────┘</div>
+                </div>
+
+                <!-- Component Diagram -->
+                <div class="diagram-showcase" id="component-diagram">
+                    <span class="diagram-badge badge-structural">Structural</span>
+                    <h4>Component Diagram</h4>
+                    <p>
+                        Shows the high-level <strong>components</strong> (modules, services, libraries) of a system and
+                        how they are wired together through interfaces. A component is any replaceable part of a system
+                        that does a defined job.
+                    </p>
+                    <p>
+                        This diagram is especially useful when designing large systems with multiple services (like a
+                        microservices application), showing which components depend on which.
+                    </p>
+                    <ul>
+                        <li>Components are drawn as rectangles with a small component icon (two small rectangles) in the corner</li>
+                        <li>Interfaces are shown as "lollipop" (provided) and "socket" (required) notations</li>
+                        <li>Helps teams understand boundaries and responsibilities between parts of the system</li>
+                    </ul>
+                    <div class="uml-ascii">┌────────────────┐     API calls      ┌─────────────────┐
+│  Frontend UI   │ ─────────────────► │  Backend (Flask) │
+│  (Browser)     │                    │                 │
+└────────────────┘                    └────────┬────────┘
+                                               │ queries
+                                      ┌────────▼────────┐
+                                      │    Database      │
+                                      │  (PostgreSQL)    │
+                                      └─────────────────┘</div>
+                </div>
+
+                <!-- Deployment Diagram -->
+                <div class="diagram-showcase" id="deployment-diagram">
+                    <span class="diagram-badge badge-structural">Structural</span>
+                    <h4>Deployment Diagram</h4>
+                    <p>
+                        Shows the <strong>physical infrastructure</strong> of a system — which software runs on which
+                        hardware or cloud environment. It maps software components (artifacts) to deployment nodes
+                        (servers, devices, cloud services).
+                    </p>
+                    <ul>
+                        <li>Nodes are drawn as 3D boxes representing physical or virtual machines</li>
+                        <li>Artefacts (deployable files like <code>.jar</code>, <code>.py</code>, <code>.html</code>) sit inside nodes</li>
+                        <li>Critical for DevOps, cloud planning, and understanding how a system is hosted</li>
+                        <li>Shows communication paths between nodes (HTTP, TCP, database connections)</li>
+                    </ul>
+                    <div class="uml-ascii">┌─────────────────────────┐       HTTPS       ┌────────────────────────┐
+│  &lt;&lt;Node&gt;&gt;               │ ◄──────────────── │  &lt;&lt;Node&gt;&gt;              │
+│  Web Server (Render)    │                   │  User's Browser        │
+│  ┌───────────────────┐  │                   └────────────────────────┘
+│  │  app.py (Flask)   │  │
+│  └───────────────────┘  │       SQL         ┌────────────────────────┐
+│                         │ ────────────────► │  &lt;&lt;Node&gt;&gt;              │
+└─────────────────────────┘                   │  Database Server       │
+                                              └────────────────────────┘</div>
+                </div>
+            </div>
+
+            <!-- Section 5: Behavioral Diagrams -->
+            <div class="section" id="behavioral-diagrams">
+                <h2 class="section-title">
+                    <span class="section-number">5</span>
+                    Behavioral UML Diagrams
+                </h2>
+
+                <p class="content-text">
+                    Behavioral diagrams answer the question: <span class="highlight">"How does the system behave?"</span>
+                    They show how the system changes over time, how users interact with it, and how components talk to
+                    each other during different operations.
+                </p>
+
+                <!-- Use Case Diagram -->
+                <div class="diagram-showcase" id="usecase-diagram">
+                    <span class="diagram-badge badge-behavioral">Behavioral</span>
+                    <h4>Use Case Diagram</h4>
+                    <p>
+                        The most accessible UML diagram — designed to be understood by <strong>non-technical stakeholders</strong>
+                        too. It shows <strong>actors</strong> (users or external systems) and the
+                        <strong>use cases</strong> (actions or goals) they can perform within the system.
+                    </p>
+                    <p>
+                        Use Case diagrams do not show <em>how</em> something happens, only <em>what</em> actors can do.
+                        They are typically created first, during the requirements phase.
+                    </p>
+                    <ul>
+                        <li>Actors are drawn as stick figures; use cases as ovals inside a system boundary rectangle</li>
+                        <li>Lines connect actors to the use cases they participate in</li>
+                        <li><code>&lt;&lt;include&gt;&gt;</code> — one use case always calls another (like login always checks password)</li>
+                        <li><code>&lt;&lt;extend&gt;&gt;</code> — one use case optionally extends another (like a payment optionally triggering a receipt)</li>
+                    </ul>
+                    <div class="uml-ascii">         ┌──────────────────────────────────────────┐
+         │              SheLearn System             │
+         │                                          │
+  [User] ──── Sign Up                              │
+  [User] ──── Log In                               │
+  [User] ──── View Lesson ────&lt;&lt;include&gt;&gt;──── Authenticate
+  [User] ──── Take Quiz                            │
+         │                                          │
+[Facilitator] ─── Create Lesson                   │
+[Facilitator] ─── View Student Progress           │
+         └──────────────────────────────────────────┘</div>
+                </div>
+
+                <!-- Sequence Diagram -->
+                <div class="diagram-showcase" id="sequence-diagram">
+                    <span class="diagram-badge badge-behavioral">Behavioral</span>
+                    <h4>Sequence Diagram</h4>
+                    <p>
+                        One of the most powerful and commonly used UML diagrams. It shows
+                        <strong>how objects interact with each other over time</strong> — specifically the sequence of
+                        messages passed between them to complete a single operation or scenario.
+                    </p>
+                    <p>
+                        Time flows <strong>downward</strong>. Each participant (object or system component) has a vertical
+                        "lifeline." Horizontal arrows between lifelines represent messages (function calls, API requests, etc.).
+                    </p>
+                    <ul>
+                        <li>Shows the exact order of interactions — perfect for designing a login flow, checkout process, or API call chain</li>
+                        <li>Solid arrows = calling a method; dashed arrows = returning a value</li>
+                        <li>Activation bars (thin rectangles on the lifeline) show when an object is actively doing work</li>
+                    </ul>
+                    <div class="uml-ascii">  Browser          Flask App         Database
+     │                   │                 │
+     │── POST /login ───►│                 │
+     │                   │── SELECT user ─►│
+     │                   │◄─ user row ─────│
+     │                   │                 │
+     │                   │ (check password)│
+     │                   │                 │
+     │◄── 200 + token ───│                 │
+     │                   │                 │
+     │── GET /dashboard ►│                 │
+     │◄── dashboard HTML ┤                 │</div>
+                </div>
+
+                <!-- Activity Diagram -->
+                <div class="diagram-showcase" id="activity-diagram">
+                    <span class="diagram-badge badge-behavioral">Behavioral</span>
+                    <h4>Activity Diagram</h4>
+                    <p>
+                        An activity diagram is essentially an <strong>advanced flowchart</strong>. It models the
+                        step-by-step flow of activities in a process — including decisions (if/else branches), loops,
+                        and parallel actions.
+                    </p>
+                    <p>
+                        Unlike sequence diagrams (which focus on interactions between objects), activity diagrams focus on
+                        the <strong>workflow of a single process</strong>, such as what happens when a user submits a form
+                        or when an order is processed.
+                    </p>
+                    <ul>
+                        <li>Starts with a filled black circle (initial node) and ends with a filled circle inside a ring (final node)</li>
+                        <li>Activities are rounded rectangles; decisions are diamonds with conditions on outgoing arrows</li>
+                        <li>Can use <strong>swimlanes</strong> to show which actor or component is responsible for each step</li>
+                    </ul>
+                    <div class="uml-ascii">         ●  (Start)
+         │
+         ▼
+  [ User fills Sign Up form ]
+         │
+         ▼
+  ◇ All fields valid?
+   │ No ──► [ Show error flash message ] ──► (loop back)
+   │ Yes
+         ▼
+  [ Hash password ]
+         │
+         ▼
+  [ Save user to database ]
+         │
+         ▼
+  [ Flash success message ]
+         │
+         ▼
+  [ Redirect to dashboard ]
+         │
+         ▼
+         ⊙  (End)</div>
+                </div>
+
+                <!-- State Machine Diagram -->
+                <div class="diagram-showcase" id="state-diagram">
+                    <span class="diagram-badge badge-behavioral">Behavioral</span>
+                    <h4>State Machine Diagram</h4>
+                    <p>
+                        A state machine diagram models the <strong>lifecycle of a single object</strong> — all the
+                        different states it can be in and the transitions (triggered by events) between those states.
+                        It answers: "What states can this object exist in, and what causes it to change?"
+                    </p>
+                    <p>
+                        It is ideal for objects whose behaviour changes significantly depending on their current state,
+                        like a user account, an order, or a connection.
+                    </p>
+                    <ul>
+                        <li>States are drawn as rounded rectangles; transitions are arrows with event labels</li>
+                        <li>Guard conditions in square brackets restrict when a transition can fire: <code>[balance &gt; 0]</code></li>
+                        <li>Entry and exit actions can be defined inside each state</li>
+                        <li>Common uses: traffic lights, vending machines, user account status, order tracking</li>
+                    </ul>
+                    <div class="uml-ascii">         ●
+         │
+         ▼
+  ┌─────────────┐   verify email    ┌──────────────┐
+  │  Registered │ ────────────────► │   Active     │
+  └─────────────┘                   └──────┬───────┘
+                                           │ violates policy
+                                           ▼
+                                    ┌──────────────┐
+                                    │  Suspended   │
+                                    └──────┬───────┘
+                                           │ appeal approved
+                                           ▼
+                                    ┌──────────────┐
+                                    │   Active     │ (restored)
+                                    └──────────────┘</div>
+                </div>
+            </div>
+
+            <!-- Section 6: When to Use Which -->
+            <div class="section" id="when-to-use">
+                <h2 class="section-title">
+                    <span class="section-number">6</span>
+                    When to Use Which Diagram
+                </h2>
+
+                <p class="content-text">
+                    You don't need every UML diagram for every project. Choose the right tool for the right question:
+                </p>
+
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <h4>"What can users do?"</h4>
+                        <p>→ <strong>Use Case Diagram</strong><br>Draw this first, during requirements gathering. Share it with stakeholders.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>"What classes and relationships will I code?"</h4>
+                        <p>→ <strong>Class Diagram</strong><br>Draw this during system design to plan your objects and database structure.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>"How does this specific feature work, step by step?"</h4>
+                        <p>→ <strong>Sequence Diagram</strong><br>Draw this to plan the messages between components for one scenario.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>"What is the full workflow for this process?"</h4>
+                        <p>→ <strong>Activity Diagram</strong><br>Draw this to map out branching logic in a business process or user journey.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>"What states can this object be in?"</h4>
+                        <p>→ <strong>State Machine Diagram</strong><br>Draw this for objects with complex lifecycle behaviour, like orders or accounts.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>"How is the system deployed to servers?"</h4>
+                        <p>→ <strong>Deployment Diagram</strong><br>Draw this when planning cloud infrastructure or explaining hosting to a DevOps team.</p>
+                    </div>
+                </div>
+
+                <div class="key-points">
+                    <h4>Key Takeaways</h4>
+                    <ul>
+                        <li>Software design is the blueprint — always design before you build</li>
+                        <li>Architectural patterns (MVC, Microservices) define the big picture; design patterns solve specific smaller problems</li>
+                        <li>UML is a shared visual language — it makes your design communicable to any developer worldwide</li>
+                        <li>Class diagrams describe structure; sequence diagrams describe interaction; activity diagrams describe flow</li>
+                        <li>Use Case diagrams are the best tool for communicating requirements to non-technical stakeholders</li>
+                        <li>You don't need all 14 UML diagrams — pick the ones that answer your current question</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Tip:</strong> Diagrams don't have to be perfect to be useful. A quick hand-drawn sketch on
+                    paper that your team can discuss is far more valuable than spending days on a perfectly formatted
+                    diagram that arrives too late to influence the design.
+                </div>
+            </div>
+
+            <!-- Lesson Footer -->
+            <div class="lesson-footer">
+                <div class="progress-section">
+                    <div class="progress-label">Lesson Progress</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn-secondary-lesson" onclick="window.location.href='/srs'">&#8592; Previous Lesson</button>
+                    <button class="btn-primary-lesson" onclick="completeLesson()">Mark as Complete</button>
+                    <button class="btn-primary-lesson" onclick="nextLesson()">Next Lesson &#8594;</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function completeLesson() {
+            fetch('/api/user/progress', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lesson_name: 'Software Design & UML' })
+            })
+            .then(r => r.json())
+            .then(() => {
+                const alertEl = document.getElementById('completeAlert');
+                alertEl.classList.add('show');
+                document.getElementById('progressFill').style.width = '100%';
+                setTimeout(() => alertEl.classList.remove('show'), 3000);
+            })
+            .catch(() => {
+                const alertEl = document.getElementById('completeAlert');
+                alertEl.classList.add('show');
+                document.getElementById('progressFill').style.width = '100%';
+                setTimeout(() => alertEl.classList.remove('show'), 3000);
+            });
+        }
+
+        function nextLesson() {
+            alert('Next lesson coming soon!');
+        }
+
+        document.querySelectorAll('.toc-list a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        document.querySelectorAll('.lesson-nav-item').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelectorAll('.lesson-nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        if (localStorage.getItem('uml_lesson_completed') === 'true') {
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+    </script>
+
+    {% if saved_content %}
+    <script type="application/json" id="lessonSavedData">{{ saved_content | tojson }}</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const raw = document.getElementById('lessonSavedData');
+            if (!raw) return;
+            const data = JSON.parse(raw.textContent);
+            if (data.title)       { const el = document.querySelector('.lesson-title');       if (el) el.textContent = data.title; }
+            if (data.description) { const el = document.querySelector('.lesson-description'); if (el) el.textContent = data.description; }
+            const els = document.querySelectorAll('.content-text');
+            (data.paragraphs || []).forEach((text, i) => { if (els[i]) els[i].textContent = text; });
+        });
+    </script>
+    {% endif %}
+
+    {% if is_facilitator %}
+    <script>
+        async function facilitatorSave() {
+            const slug        = 'software-design-uml';
+            const title       = document.querySelector('.lesson-title')?.innerText.trim()       || '';
+            const description = document.querySelector('.lesson-description')?.innerText.trim() || '';
+            const paragraphs  = [...document.querySelectorAll('.content-text')].map(el => el.innerText.trim());
+
+            function showToast(msg, ok) {
+                const t = document.createElement('div');
+                t.textContent = msg;
+                t.style.cssText = `position:fixed;bottom:30px;right:30px;z-index:9999;
+                    background:${ok ? '#35B7A2' : '#e05252'};color:#fff;
+                    padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;
+                    box-shadow:0 8px 20px rgba(0,0,0,0.15);transition:opacity 0.4s;`;
+                document.body.appendChild(t);
+                setTimeout(() => { t.style.opacity = '0'; }, 2500);
+                setTimeout(() => t.remove(), 3000);
+            }
+
+            try {
+                const res  = await fetch('/api/lessons/update', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({ slug, title, description, paragraphs })
+                });
+                const data = await res.json();
+                showToast(res.ok ? '✓ Changes saved successfully!' : '✗ ' + (data.error || 'Save failed.'), res.ok);
+            } catch (err) {
+                showToast('✗ Network error — changes not saved.', false);
+            }
+        }
+
+        function facilitatorCancel() {
+            window.location.href = '/facilitator';
+        }
+
+        (function () {
+            ['.lesson-title', '.lesson-description'].forEach(sel => {
+                const el = document.querySelector(sel);
+                if (!el) return;
+                el.contentEditable = 'true';
+                el.style.outline = '2px dashed #D9A6F0';
+                el.style.borderRadius = '6px';
+                el.style.padding = '4px 8px';
+                el.title = 'Click to edit';
+            });
+            document.querySelectorAll('.content-text').forEach(el => {
+                el.contentEditable = 'true';
+                el.style.outline = '2px dashed rgba(217,166,240,0.5)';
+                el.style.borderRadius = '4px';
+                el.style.padding = '4px 6px';
+                el.title = 'Click to edit';
+            });
+        })();
+    </script>
+    {% endif %}
+
+</body>
+
+</html>

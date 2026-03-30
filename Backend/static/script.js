@@ -286,55 +286,138 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* ---------------------------------------------------------
        6. ADMIN MODALS (Add User / Delete User)
-       Opens/closes modal overlays; resets form on close.
+       Opens/closes modal overlays; submits to backend API.
     --------------------------------------------------------- */
-    function setupModal(openBtnId, closeBtnId, cancelBtnId, overlayId, formId) {
-        const overlay = document.getElementById(overlayId);
-        const openBtn = document.getElementById(openBtnId);
+    function showModalMsg(msgEl, text, isError) {
+        if (!msgEl) return;
+        msgEl.textContent = text;
+        msgEl.style.display = 'block';
+        msgEl.style.color = isError ? '#e05252' : '#4caf7d';
+        msgEl.style.marginBottom = '10px';
+        msgEl.style.fontSize = '13px';
+    }
+
+    function setupModal(openBtnId, closeBtnId, cancelBtnId, overlayId, formId, msgElId) {
+        const overlay  = document.getElementById(overlayId);
+        const openBtn  = document.getElementById(openBtnId);
         const closeBtn = document.getElementById(closeBtnId);
         const cancelBtn = cancelBtnId ? document.getElementById(cancelBtnId) : null;
-        const form = formId ? document.getElementById(formId) : null;
+        const form     = formId ? document.getElementById(formId) : null;
+        const msgEl    = msgElId ? document.getElementById(msgElId) : null;
 
         if (!overlay || !openBtn) return;
 
         function openModal() {
             overlay.classList.add('modal-active');
             document.body.style.overflow = 'hidden';
+            if (msgEl) msgEl.style.display = 'none';
         }
 
         function closeModal() {
             overlay.classList.remove('modal-active');
             document.body.style.overflow = '';
             if (form) form.reset();
+            if (msgEl) msgEl.style.display = 'none';
         }
 
         openBtn.addEventListener('click', openModal);
         if (closeBtn) closeBtn.addEventListener('click', closeModal);
         if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
 
-        // Close on backdrop click
         overlay.addEventListener('click', function (e) {
             if (e.target === overlay) closeModal();
         });
 
-        // Close on Escape key
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && overlay.classList.contains('modal-active')) {
                 closeModal();
             }
         });
 
-        // Handle form submit (frontend stub – wire to backend POST)
-        if (form) {
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                // TODO: send form data to backend endpoint
-                closeModal();
-            });
-        }
+        return { openModal, closeModal };
     }
 
-    setupModal('openAddUserModal', 'closeAddUserModal', 'cancelAddUser', 'addUserModal', 'addUserForm');
-    setupModal('openDeleteUserModal', 'closeDeleteUserModal', 'cancelDeleteUser', 'deleteUserModal', 'deleteUserForm');
+    setupModal('openAddUserModal', 'closeAddUserModal', 'cancelAddUser', 'addUserModal', 'addUserForm', 'addUserMsg');
+    setupModal('openDeleteUserModal', 'closeDeleteUserModal', 'cancelDeleteUser', 'deleteUserModal', 'deleteUserForm', 'deleteUserMsg');
+
+    /* -- Add User form submit ------------------------------------------- */
+    const addUserForm = document.getElementById('addUserForm');
+    if (addUserForm) {
+        addUserForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const msgEl   = document.getElementById('addUserMsg');
+            const submitBtn = document.getElementById('submitAddUser');
+
+            const payload = {
+                name:     document.getElementById('newUserName').value.trim(),
+                email:    document.getElementById('newUserEmail').value.trim(),
+                password: document.getElementById('newUserPassword').value.trim(),
+                role:     document.getElementById('newUserRole').value || 'student',
+                track:    document.getElementById('newUserTrack').value || ''
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Creating…';
+
+            try {
+                const res  = await fetch('/api/admin/add-user', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    showModalMsg(msgEl, data.error || 'Something went wrong.', true);
+                } else {
+                    showModalMsg(msgEl, data.message, false);
+                    addUserForm.reset();
+                    setTimeout(() => location.reload(), 1200);
+                }
+            } catch (err) {
+                showModalMsg(msgEl, 'Network error. Please try again.', true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Create User';
+            }
+        });
+    }
+
+    /* -- Delete User form submit ----------------------------------------- */
+    const deleteUserForm = document.getElementById('deleteUserForm');
+    if (deleteUserForm) {
+        deleteUserForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const msgEl    = document.getElementById('deleteUserMsg');
+            const confirmBtn = deleteUserForm.querySelector('.btn-delete-confirm');
+
+            const payload = {
+                email: document.getElementById('delUserEmail').value.trim()
+            };
+
+            if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.textContent = 'Deleting…'; }
+
+            try {
+                const res  = await fetch('/api/admin/delete-user', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    showModalMsg(msgEl, data.error || 'Something went wrong.', true);
+                } else {
+                    showModalMsg(msgEl, data.message, false);
+                    deleteUserForm.reset();
+                    setTimeout(() => location.reload(), 1200);
+                }
+            } catch (err) {
+                showModalMsg(msgEl, 'Network error. Please try again.', true);
+            } finally {
+                if (confirmBtn) { confirmBtn.disabled = false; confirmBtn.textContent = 'Confirm Delete'; }
+            }
+        });
+    }
 
 });

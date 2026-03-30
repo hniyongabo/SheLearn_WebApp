@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const navItems = document.querySelectorAll(".nav-item");
 
     if (navItems.length > 0) {
-        const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        const currentPage = window.location.pathname.split("/").pop() || "/landing";
 
         navItems.forEach(item => {
             const itemPage = (item.getAttribute("href") || "").split("/").pop();

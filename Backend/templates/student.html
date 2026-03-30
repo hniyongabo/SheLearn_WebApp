@@ -5,38 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard | SheLearn</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        html, body {
+        html,
+        body {
             height: 100%;
             width: 100%;
             margin: 0;
             padding: 0;
         }
-        
+
         body {
-            background: linear-gradient(180deg, #FFF6FA, #f9f7fb);
+            background-color: #f9f7fb;
         }
-        
+
+        .page-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            opacity: 0.13;
+        }
+
         .dashboard-wrapper {
             min-height: 100vh;
             display: flex;
+            position: relative;
+            z-index: 1;
         }
-        
+
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
         }
-        
+
         .dashboard-header {
             padding: 30px 40px;
             background: linear-gradient(135deg, rgba(217, 166, 240, 0.1), rgba(53, 183, 162, 0.05));
             border-bottom: 1px solid rgba(217, 166, 240, 0.2);
         }
-        
+
         .card-grid {
             flex: 1;
             padding: 40px;
@@ -47,7 +61,7 @@
             margin: 0 auto;
             width: 100%;
         }
-        
+
         .course-card {
             background: #ffffff;
             padding: 30px;
@@ -58,20 +72,20 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .course-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(217, 166, 240, 0.2);
             border-color: rgba(217, 166, 240, 0.5);
         }
-        
+
         .dashboard-card-title {
             color: #2D3748;
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 15px;
         }
-        
+
         .course-card p {
             color: #555;
             font-size: 14px;
@@ -79,8 +93,9 @@
             flex: 1;
             line-height: 1.6;
         }
-        
-        .btn-accent, .btn-secondary {
+
+        .btn-accent,
+        .btn-secondary {
             padding: 12px 24px;
             border: none;
             border-radius: 10px;
@@ -92,61 +107,68 @@
             text-decoration: none;
             display: inline-block;
         }
-        
+
         .btn-accent {
             background: #35B7A2;
             color: white;
         }
-        
+
         .btn-accent:hover {
             background: #2a96d8;
             transform: scale(1.05);
         }
-        
+
         .btn-secondary {
             background: #f0f0f0;
             color: #2D3748;
             border: 1px solid #ddd;
         }
-        
+
         .btn-secondary:hover {
             background: #e5e5e5;
             border-color: #35B7A2;
         }
     </style>
+    {% block extra_styles %}{% endblock %}
 
 </head>
 
 <body>
+    {% block page_bg %}<div class="page-bg" style="background-image: url('/hero-bg.jpeg');"></div>{% endblock %}
     <div class="dashboard-wrapper">
         <aside class="sidebar">
             <div class="logo dashboard-logo">SheLearn</div>
             <nav>
-                <a href="student.html" class="nav-item active">My Dashboard</a>
-                <a href="course-modules.html" class="nav-item">Course Modules</a>
-                <a href="knowledge-test.html" class="nav-item">Knowledge Test</a>
+                <a href="/student" class="nav-item active">My Dashboard</a>
+               {%block modules%} <a href="/course-modules" class="nav-item">Course Modules</a> {%endblock%}
+            {%block nav_knowledge_test%}<a href="/knowledge-test" class="nav-item">Knowledge Test</a> {%endblock%}
                 <!-- Logout uses a dedicated class so it can be styled as a "danger" action without inline styles. -->
-                <a href="landing.html" class="nav-item nav-item-logout">Logout</a>
+                <a href="/landing" class="nav-item nav-item-logout">Logout</a>
             </nav>
         </aside>
 
         <main class="main-content">
             <header class="dashboard-header">
-                <h2>Welcome Back, Scholar!</h2>
-                <p class="dashboard-subtitle">Track: Data Science &amp; Analysis</p>
+                <h2>{% if is_new %}Welcome, {{ content }}!{% else %}Welcome Back, {{ content }}!{% endif %}</h2>
+                <p class="dashboard-subtitle">Track: {{course}}</p>
             </header>
 
             <div class="card-grid">
                 <div class="course-card">
-                    <h4 class="dashboard-card-title">Current Module</h4>
-                    <p>APIs & Web Scraping - Learn how to fetch data from web services and scrape websites using Python.</p>
-                    <button class="btn-accent" onclick="window.location.href='lesson.html'">Continue Learning</button>
+                    <h4 class="dashboard-card-title">Modules</h4>
+                    <p> Check out our courses on Introduction to Data Science and Web Scrapping!
+                    </p>
+                    {% block modules_btn %}<button class="btn-accent" onclick="window.location.href='/course-modules'"> Go To Modules</button>{% endblock %}
                 </div>
+                {% block card_knowledge_test %}
                 <div class="course-card">
                     <h4 class="dashboard-card-title">New Quiz Posted</h4>
-                    <p>Test your knowledge with a new quiz on Data Science concepts. Complete the assessment to track your progress.</p>
-                    <button class="btn-accent" onclick="window.location.href='knowledge-test.html'">Take Quiz</button>
+                    <p>Test your knowledge with a new quiz on Data Science concepts. Complete the assessment to track
+                        your progress.</p>
+                    <button class="btn-accent" onclick="window.location.href='/knowledge-test'">Take Quiz</button>
                 </div>
+                {% endblock %}
+                {% block card_lesson %}{% endblock %}
             </div>
         </main>
     </div>
